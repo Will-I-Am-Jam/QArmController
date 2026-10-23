@@ -1,0 +1,4 @@
+/* Expression: [0 0 10 0 ] * pi/180
+  * Referenced by: '<Root>/Constant15'
+   */
+{   0.0, 0.0, 0.17453292519943295, 0.0 } 

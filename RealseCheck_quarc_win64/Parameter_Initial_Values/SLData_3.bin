@@ -1,0 +1,4 @@
+/* Mask Parameter: HILWrite_other_channels
+  * Referenced by: '<S2>/HIL Write'
+   */
+{   1000U, 1001U, 1002U, 1003U, 1004U, 11000U, 11001U, 11002U, 11003U, 11005U, 11006U, 11007U, 11008U } 
