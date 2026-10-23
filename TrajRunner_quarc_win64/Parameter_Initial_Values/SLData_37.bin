@@ -1,0 +1,4 @@
+/* Computed Parameter: HILReadTimebase1_OtherChannels
+  * Referenced by: '<S2>/HIL Read Timebase1'
+   */
+{   1000U, 1001U, 1002U, 1003U, 1004U, 3000U, 3001U, 3002U, 3003U, 3004U, 10000U, 10001U, 10002U, 10003U, 10004U, 11000U, 11001U, 11002U, 11003U, 11004U } 

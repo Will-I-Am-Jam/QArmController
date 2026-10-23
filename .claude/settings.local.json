@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python fk_check.py 0 0 0 0)",
+      "Bash(python fk_check.py 0 20 10 0 0.8 0 0 0)",
+      "Bash(python fk_check.py 0 -8.13 -81.87 0)"
+    ]
+  }
+}
