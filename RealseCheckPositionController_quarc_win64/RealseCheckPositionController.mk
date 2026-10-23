@@ -2,7 +2,7 @@
 ## Makefile generated for component 'RealseCheckPositionController'. 
 ## 
 ## Makefile     : RealseCheckPositionController.mk
-## Generated on : Fri Oct 16 14:06:40 2026
+## Generated on : Thu Oct 22 18:11:23 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)\RealseCheckPositionController.rt-win64
 ## Product type : executable
 ## 
@@ -23,7 +23,7 @@ MAKEFILE                  = RealseCheckPositionController.mk
 MATLAB_ROOT               = C:\PROGRA~1\MATLAB\R2026a
 MATLAB_BIN                = C:\PROGRA~1\MATLAB\R2026a\bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
-START_DIR                 = C:\Users\meow1\Documents\CodingProjects\HSL
+START_DIR                 = C:\Users\meow1\Documents\CodingProjects\HSL\QArmController
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 1

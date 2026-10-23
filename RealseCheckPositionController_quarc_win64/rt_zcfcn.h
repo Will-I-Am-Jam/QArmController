@@ -7,9 +7,9 @@
  *
  * Code generation for model "RealseCheckPositionController".
  *
- * Model version              : 13.36
+ * Model version              : 13.37
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Oct 16 15:18:56 2026
+ * C source code generated on : Thu Oct 22 19:17:27 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

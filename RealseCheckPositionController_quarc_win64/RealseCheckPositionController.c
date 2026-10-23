@@ -7,9 +7,9 @@
  *
  * Code generation for model "RealseCheckPositionController".
  *
- * Model version              : 13.36
+ * Model version              : 13.37
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Oct 16 15:18:56 2026
+ * C source code generated on : Thu Oct 22 19:17:27 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -1877,8 +1877,8 @@ void RealseCheckPositionController_initialize(void)
     is_switching = false;
     result = hil_set_card_specific_options
       (RealseCheckPositionControlle_DW.HILInitializePositionMode_Card,
-       "j0_mode=0;j1_mode=0;j2_mode=0;j3_mode=0;gripper_mode=0;j0_profile_config=0;j0_profile_velocity=1.6;j0_profile_acceleration=1.0472;j1_profile_config=0;j1_profile_velocity=1.6;j1_profile_acceleration=1.0472;j2_profile_config=1;j2_profile_velocity=0.05;j2_profile_acceleration=0.01;j3_profile_config=0;j3_profile_velocity=1.6;j3_profile_acceleration=1.0472;",
-       355);
+       "j0_mode=0;j1_mode=0;j2_mode=0;j3_mode=0;gripper_mode=0;j0_profile_config=0;j0_profile_velocity=1.6;j0_profile_acceleration=1.0472;j1_profile_config=0;j1_profile_velocity=1.6;j1_profile_acceleration=1.0472;j2_profile_config=0;j2_profile_velocity=1.6;j2_profile_acceleration=1.0472;j3_profile_config=0;j3_profile_velocity=1.6;j3_profile_acceleration=1.0472;",
+       356);
     if (result < 0) {
       msg_get_error_messageA(NULL, result, _rt_error_message, sizeof
         (_rt_error_message));
@@ -2379,10 +2379,10 @@ RT_MODEL_RealseCheckPositionC_T *RealseCheckPositionController(void)
   rtmSetFirstInitCond(RealseCheckPositionControlle_M, 1);
 
   /* External mode info */
-  RealseCheckPositionControlle_M->Sizes.checksums[0] = (3867223107U);
-  RealseCheckPositionControlle_M->Sizes.checksums[1] = (2929308896U);
-  RealseCheckPositionControlle_M->Sizes.checksums[2] = (4229949321U);
-  RealseCheckPositionControlle_M->Sizes.checksums[3] = (1631362577U);
+  RealseCheckPositionControlle_M->Sizes.checksums[0] = (696661406U);
+  RealseCheckPositionControlle_M->Sizes.checksums[1] = (3132324895U);
+  RealseCheckPositionControlle_M->Sizes.checksums[2] = (841733946U);
+  RealseCheckPositionControlle_M->Sizes.checksums[3] = (3584168461U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;

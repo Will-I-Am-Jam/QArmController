@@ -7,9 +7,9 @@
  *
  * Code generation for model "RealseCheckPositionController".
  *
- * Model version              : 13.36
+ * Model version              : 13.37
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Oct 16 15:18:56 2026
+ * C source code generated on : Thu Oct 22 19:17:27 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -140,10 +140,10 @@ P_RealseCheckPositionControll_T RealseCheckPositionController_P = {
    */
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
-  /* Expression: [0 0 0 0] * pi/180
+  /* Expression: [0.1746 0.3490 0.3490 0]
    * Referenced by: '<Root>/Default Cmd'
    */
-  { 0.0, 0.0, 0.0, 0.0 },
+  { 0.1746, 0.349, 0.349, 0.0 },
 
   /* Expression: initial_phase
    * Referenced by: '<Root>/Base'
@@ -225,10 +225,10 @@ P_RealseCheckPositionControll_T RealseCheckPositionController_P = {
    */
   { 0.1, 0.1, 0.1 },
 
-  /* Expression: [0 0 -90 0 ] * pi/180
+  /* Expression: [0 0 -8 0 ] * pi/180
    * Referenced by: '<Root>/Constant15'
    */
-  { 0.0, 0.0, -1.5707963267948966, 0.0 },
+  { 0.0, 0.0, -0.13962634015954636, 0.0 },
 
   /* Expression: qc_get_step_size
    * Referenced by: '<Root>/Constant7'
@@ -590,7 +590,7 @@ P_RealseCheckPositionControll_T RealseCheckPositionController_P = {
   /* Computed Parameter: MAIN_CurrentSetting
    * Referenced by: '<Root>/MAIN'
    */
-  0U,
+  1U,
 
   /* Computed Parameter: ManualSwitch5_CurrentSetting
    * Referenced by: '<Root>/Manual Switch5'
@@ -600,5 +600,5 @@ P_RealseCheckPositionControll_T RealseCheckPositionController_P = {
   /* Computed Parameter: MAIN1_CurrentSetting
    * Referenced by: '<Root>/MAIN1'
    */
-  0U
+  1U
 };

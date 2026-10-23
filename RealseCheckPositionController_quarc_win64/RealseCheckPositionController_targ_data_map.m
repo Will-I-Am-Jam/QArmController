@@ -996,8 +996,8 @@
     ;%
 
 
-    targMap.checksum0 = 3867223107;
-    targMap.checksum1 = 2929308896;
-    targMap.checksum2 = 4229949321;
-    targMap.checksum3 = 1631362577;
+    targMap.checksum0 = 696661406;
+    targMap.checksum1 = 3132324895;
+    targMap.checksum2 = 841733946;
+    targMap.checksum3 = 3584168461;
 
