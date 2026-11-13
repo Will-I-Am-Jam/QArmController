@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.46
+ * Model version              : 13.49
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Thu Oct 22 21:01:32 2026
+ * C source code generated on : Fri Nov 13 11:26:08 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -106,7 +106,7 @@ static DataTypeTransition rtPTransitions[] = {
 
   { (char_T *)(&TrajRunner_P.HILWrite_other_channels[0]), 7, 0, 13 },
 
-  { (char_T *)(&TrajRunner_P.Constant4_Value), 0, 0, 503 },
+  { (char_T *)(&TrajRunner_P.Constant4_Value), 0, 0, 195 },
 
   { (char_T *)(&TrajRunner_P.HILInitializePositionMode_CKCha), 6, 0, 3 },
 

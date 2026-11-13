@@ -1,0 +1,5 @@
+*.slx binary -crlf -diff -merge
+*.mdl binary -crlf -diff -merge
+*.sldd binary -crlf -diff -merge
+*.mat binary -crlf -diff -merge
+*.mlx binary -crlf -diff -merge

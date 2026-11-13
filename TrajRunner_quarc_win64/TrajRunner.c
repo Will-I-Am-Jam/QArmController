@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.46
+ * Model version              : 13.49
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Thu Oct 22 21:01:32 2026
+ * C source code generated on : Fri Nov 13 11:26:08 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -1315,7 +1315,7 @@ void TrajRunner_output(void)
     /* '<S5>:1:2' */
     if (!TrajRunner_DW.idx_not_empty) {
       TrajRunner_DW.idx = fmin(fmax(rt_roundd_snf(TrajRunner_P.Constant17_Value),
-        1.0), 101.0);
+        1.0), 24.0);
       TrajRunner_DW.idx_not_empty = true;
       TrajRunner_DW.count_not_empty = true;
     }
@@ -1361,7 +1361,7 @@ void TrajRunner_output(void)
         if (T01_tmp > 0.5) {
           TrajRunner_DW.idx = fmax(TrajRunner_DW.idx - 1.0, 1.0);
         } else {
-          TrajRunner_DW.idx = fmin(TrajRunner_DW.idx + 1.0, 101.0);
+          TrajRunner_DW.idx = fmin(TrajRunner_DW.idx + 1.0, 24.0);
         }
       }
     }
@@ -2190,10 +2190,10 @@ RT_MODEL_TrajRunner_T *TrajRunner(void)
   rtmSetFirstInitCond(TrajRunner_M, 1);
 
   /* External mode info */
-  TrajRunner_M->Sizes.checksums[0] = (964953091U);
-  TrajRunner_M->Sizes.checksums[1] = (1756667917U);
-  TrajRunner_M->Sizes.checksums[2] = (4285519919U);
-  TrajRunner_M->Sizes.checksums[3] = (1674736774U);
+  TrajRunner_M->Sizes.checksums[0] = (4256130222U);
+  TrajRunner_M->Sizes.checksums[1] = (2802704034U);
+  TrajRunner_M->Sizes.checksums[2] = (872323774U);
+  TrajRunner_M->Sizes.checksums[3] = (36958807U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -2284,7 +2284,7 @@ RT_MODEL_TrajRunner_T *TrajRunner(void)
   TrajRunner_M->Sizes.numSampTimes = (2);/* Number of sample times */
   TrajRunner_M->Sizes.numBlocks = (91);/* Number of blocks */
   TrajRunner_M->Sizes.numBlockIO = (43);/* Number of block outputs */
-  TrajRunner_M->Sizes.numBlockPrms = (619);/* Sum of parameter "widths" */
+  TrajRunner_M->Sizes.numBlockPrms = (311);/* Sum of parameter "widths" */
   return TrajRunner_M;
 }
 
