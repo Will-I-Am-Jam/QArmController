@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.49
+ * Model version              : 13.55
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Nov 13 11:26:08 2026
+ * C source code generated on : Fri Nov 13 13:36:25 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -23,7 +23,7 @@
 /* Block parameters (default storage) */
 P_TrajRunner_T TrajRunner_P = {
   /* Mask Parameter: Ramp_InitialOutput
-   * Referenced by: '<S7>/Constant1'
+   * Referenced by: '<S6>/Constant1'
    */
   0.0,
 
@@ -33,24 +33,24 @@ P_TrajRunner_T TrajRunner_P = {
   { 0.0, 1.0, 0.0 },
 
   /* Mask Parameter: undOrder25HzfilterbasedonFFT_in
-   * Referenced by: '<S9>/wn'
+   * Referenced by: '<S8>/wn'
    */
   157.07963267948966,
 
   /* Mask Parameter: undOrder25HzfilterbasedonFFT__a
-   * Referenced by: '<S9>/zt'
+   * Referenced by: '<S8>/zt'
    */
   1.0,
 
   /* Mask Parameter: Ramp_slope
-   * Referenced by: '<S7>/Step'
+   * Referenced by: '<S6>/Step'
    */
   0.26179938779914941,
 
   /* Mask Parameter: Ramp_start
    * Referenced by:
-   *   '<S7>/Constant'
-   *   '<S7>/Step'
+   *   '<S6>/Constant'
+   *   '<S6>/Step'
    */
   0.0,
 
@@ -81,22 +81,22 @@ P_TrajRunner_T TrajRunner_P = {
   0.0,
 
   /* Expression: 1
-   * Referenced by: '<Root>/run'
+   * Referenced by: '<Root>/CLOSE 1'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<Root>/stop'
+   * Referenced by: '<Root>/ OPEN1'
    */
   0.0,
 
   /* Expression: 1
-   * Referenced by: '<Root>/reverse'
+   * Referenced by: '<Root>/CLOSE 2'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<Root>/forwards'
+   * Referenced by: '<Root>/ OPEN2'
    */
   0.0,
 
@@ -160,10 +160,10 @@ P_TrajRunner_T TrajRunner_P = {
    */
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
-  /* Expression: [0;-1.1318;-0.7546;0]
+  /* Expression: [0;-1.1318;-1.63712;0]
    * Referenced by: '<Root>/Default Cmd'
    */
-  { 0.0, -1.1318, -0.7546, 0.0 },
+  { 0.0, -1.1318, -1.63712, 0.0 },
 
   /* Expression: initial_phase
    * Referenced by: '<Root>/Base'
@@ -196,7 +196,7 @@ P_TrajRunner_T TrajRunner_P = {
   0.25,
 
   /* Expression: 0
-   * Referenced by: '<S7>/Step'
+   * Referenced by: '<S6>/Step'
    */
   0.0,
 
@@ -220,87 +220,68 @@ P_TrajRunner_T TrajRunner_P = {
    */
   0.125,
 
-  /* Expression: [-0.075 0 0.875]
+  /* Expression: [0 0 -pi/2 0]
    * Referenced by: '<Root>/Constant'
    */
-  { -0.075, 0.0, 0.875 },
+  { 0.0, 0.0, -1.5707963267948966, 0.0 },
 
-  /* Expression: [1.5 0 0]
+  /* Expression: [0.5 0 0 0]
    * Referenced by: '<Root>/Constant12'
    */
-  { 1.5, 0.0, 0.0 },
+  { 0.5, 0.0, 0.0, 0.0 },
 
-  /* Expression: [0.03 0.03 0.03]
+  /* Expression: [0.5 0.5 0.5 0.5]
    * Referenced by: '<Root>/Constant5'
    */
-  { 0.03, 0.03, 0.03 },
+  { 0.5, 0.5, 0.5, 0.5 },
 
-  /* Expression: [0.2 0.2 0.2]
+  /* Expression: [0.7 0.7 0.7 0.7]
    * Referenced by: '<Root>/Constant11'
    */
-  { 0.2, 0.2, 0.2 },
+  { 0.7, 0.7, 0.7, 0.7 },
 
-  /* Expression: [0.07 0.07 0.07]
+  /* Expression: [0.07 0.07 0.07 0.07]
    * Referenced by: '<Root>/Constant13'
    */
-  { 0.07, 0.07, 0.07 },
+  { 0.07, 0.07, 0.07, 0.07 },
+
+  /* Expression: 1
+   * Referenced by: '<Root>/Constant7'
+   */
+  1.0,
+
+  /* Expression: qc_get_step_size
+   * Referenced by: '<Root>/Constant18'
+   */
+  0.002,
 
   /* Expression: [0 0 0 0]
    * Referenced by: '<Root>/Constant1'
    */
   { 0.0, 0.0, 0.0, 0.0 },
 
-  /* Expression: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;-1.13184 -1.13099 -1.12516 -1.10965 -1.08046 -1.03455 -0.97024 -0.88766 -0.78957 -0.68302 -0.5819 -0.50317 -0.45059 -0.41483 -0.38573 -0.36205 -0.34198 -0.32505 -0.31135 -0.30109 -0.29427 -0.29053 -0.2891 -0.28889;-0.75455 -0.75523 -0.75992 -0.77237 -0.79572 -0.83218 -0.88254 -0.94546 -1.01591 -1.082 -1.12002 -1.10135 -1.02304 -0.9073 -0.76354 -0.61795 -0.4826 -0.36555 -0.27168 -0.20284 -0.15808 -0.13389 -0.12468 -0.12334;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-   * Referenced by: '<Root>/Constant15'
-   */
-  { 0.0, -1.13184, -0.75455, 0.0, 0.0, -1.13099, -0.75523, 0.0, 0.0, -1.12516,
-    -0.75992, 0.0, 0.0, -1.10965, -0.77237, 0.0, 0.0, -1.08046, -0.79572, 0.0,
-    0.0, -1.03455, -0.83218, 0.0, 0.0, -0.97024, -0.88254, 0.0, 0.0, -0.88766,
-    -0.94546, 0.0, 0.0, -0.78957, -1.01591, 0.0, 0.0, -0.68302, -1.082, 0.0, 0.0,
-    -0.5819, -1.12002, 0.0, 0.0, -0.50317, -1.10135, 0.0, 0.0, -0.45059,
-    -1.02304, 0.0, 0.0, -0.41483, -0.9073, 0.0, 0.0, -0.38573, -0.76354, 0.0,
-    0.0, -0.36205, -0.61795, 0.0, 0.0, -0.34198, -0.4826, 0.0, 0.0, -0.32505,
-    -0.36555, 0.0, 0.0, -0.31135, -0.27168, 0.0, 0.0, -0.30109, -0.20284, 0.0,
-    0.0, -0.29427, -0.15808, 0.0, 0.0, -0.29053, -0.13389, 0.0, 0.0, -0.2891,
-    -0.12468, 0.0, 0.0, -0.28889, -0.12334, 0.0 },
-
-  /* Expression: 20
-   * Referenced by: '<Root>/Constant16'
-   */
-  20.0,
-
-  /* Expression: 24
-   * Referenced by: '<Root>/Constant17'
-   */
-  24.0,
-
-  /* Expression: qc_get_step_size
-   * Referenced by: '<Root>/Constant7'
-   */
-  0.002,
-
   /* Expression: 0.1
-   * Referenced by: '<S8>/Integrator'
+   * Referenced by: '<S7>/Integrator'
    */
   0.1,
 
   /* Expression: 0.9
-   * Referenced by: '<S8>/Integrator'
+   * Referenced by: '<S7>/Integrator'
    */
   0.9,
 
   /* Expression: 0.1
-   * Referenced by: '<S8>/Integrator'
+   * Referenced by: '<S7>/Integrator'
    */
   0.1,
 
   /* Expression: 0.1
-   * Referenced by: '<S8>/open position'
+   * Referenced by: '<S7>/open position'
    */
   0.1,
 
   /* Expression: 0
-   * Referenced by: '<S8>/Switch'
+   * Referenced by: '<S7>/Switch'
    */
   0.0,
 
@@ -325,27 +306,27 @@ P_TrajRunner_T TrajRunner_P = {
   0.5,
 
   /* Expression: input_init
-   * Referenced by: '<S9>/x0'
+   * Referenced by: '<S8>/x0'
    */
   0.0,
 
   /* Expression: 0.25
-   * Referenced by: '<S8>/Soft-Grip Current (A)'
+   * Referenced by: '<S7>/Soft-Grip Current (A)'
    */
   0.25,
 
   /* Expression: 2
-   * Referenced by: '<S9>/Constant'
+   * Referenced by: '<S8>/Constant'
    */
   2.0,
 
   /* Expression: 0
-   * Referenced by: '<S9>/Integrator2'
+   * Referenced by: '<S8>/Integrator2'
    */
   0.0,
 
   /* Expression: 10
-   * Referenced by: '<S8>/Gain2'
+   * Referenced by: '<S7>/Gain2'
    */
   10.0,
 
@@ -599,7 +580,7 @@ P_TrajRunner_T TrajRunner_P = {
   /* Computed Parameter: ManualSwitch4_CurrentSetting
    * Referenced by: '<Root>/Manual Switch4'
    */
-  0U,
+  1U,
 
   /* Computed Parameter: HILReadTimebase1_OverflowMode
    * Referenced by: '<S2>/HIL Read Timebase1'
@@ -629,7 +610,7 @@ P_TrajRunner_T TrajRunner_P = {
   /* Computed Parameter: ManualSwitch5_CurrentSetting
    * Referenced by: '<Root>/Manual Switch5'
    */
-  1U,
+  0U,
 
   /* Computed Parameter: ManualSwitch6_CurrentSetting
    * Referenced by: '<Root>/Manual Switch6'

@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.49
+ * Model version              : 13.55
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Nov 13 11:26:08 2026
+ * C source code generated on : Fri Nov 13 13:36:25 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -959,16 +959,15 @@ typedef struct {
   real_T MAIN[4];                      /* '<Root>/MAIN' */
   real_T ManualSwitch5;                /* '<Root>/Manual Switch5' */
   real_T MAIN1[4];                     /* '<Root>/MAIN1' */
-  real_T gripposition;                 /* '<S8>/Switch' */
-  real_T x0;                           /* '<S9>/x0' */
-  real_T Integrator1;                  /* '<S9>/Integrator1' */
-  real_T goalcurrent;                  /* '<S8>/Soft-Grip Current (A)' */
-  real_T Product;                      /* '<S9>/Product' */
-  real_T Product1;                     /* '<S9>/Product1' */
-  real_T Gain2;                        /* '<S8>/Gain2' */
-  real_T phi[4];                       /* '<Root>/MATLAB Function2' */
-  real_T p4[3];                        /* '<Root>/MATLAB Function1' */
-  real_T v4[3];                        /* '<Root>/MATLAB Function1' */
+  real_T gripposition;                 /* '<S7>/Switch' */
+  real_T x0;                           /* '<S8>/x0' */
+  real_T Integrator1;                  /* '<S8>/Integrator1' */
+  real_T goalcurrent;                  /* '<S7>/Soft-Grip Current (A)' */
+  real_T Product;                      /* '<S8>/Product' */
+  real_T Product1;                     /* '<S8>/Product1' */
+  real_T Gain2;                        /* '<S7>/Gain2' */
+  real_T phi_cmd[4];                   /* '<Root>/MATLAB Function1' */
+  real_T newState;                     /* '<Root>/MATLAB Function' */
 } B_TrajRunner_T;
 
 /* Block states (default storage) for system '<Root>' */
@@ -979,8 +978,7 @@ typedef struct {
   real_T HILReadTimebase1_AnalogBuffer[5];/* '<S2>/HIL Read Timebase1' */
   real_T HILReadTimebase1_OtherBuffer[20];/* '<S2>/HIL Read Timebase1' */
   real_T HILWrite_OtherBuffer[13];     /* '<S2>/HIL Write' */
-  real_T idx;                          /* '<Root>/MATLAB Function2' */
-  real_T count;                        /* '<Root>/MATLAB Function2' */
+  real_T cmd[4];                       /* '<Root>/MATLAB Function1' */
   t_card HILInitializePositionMode_Card;
                                    /* '<Root>/HIL Initialize (Position Mode)' */
   t_task HILReadTimebase1_Task;        /* '<S2>/HIL Read Timebase1' */
@@ -1030,55 +1028,56 @@ typedef struct {
   } Measurements_PWORK;                /* '<Root>/Measurements' */
 
   struct {
-    void *LoggedData[2];
+    void *LoggedData;
   } Scope_PWORK;                       /* '<Root>/Scope' */
+
+  struct {
+    void *LoggedData;
+  } Scope2_PWORK;                      /* '<Root>/Scope2' */
 
   void *HILWrite_PWORK;                /* '<S2>/HIL Write' */
   struct {
     void *LoggedData[2];
-  } CurrentFilteration_PWORK;          /* '<S8>/Current Filteration' */
+  } CurrentFilteration_PWORK;          /* '<S7>/Current Filteration' */
 
   struct {
     void *LoggedData[2];
-  } GoalvsActualGripCurrent_PWORK;     /* '<S8>/Goal vs. Actual Grip Current' */
+  } GoalvsActualGripCurrent_PWORK;     /* '<S7>/Goal vs. Actual Grip Current' */
 
   int32_T HILInitializePositionMode_Clock;
                                    /* '<Root>/HIL Initialize (Position Mode)' */
-  int32_T sfEvent;                     /* '<Root>/MATLAB Function2' */
-  int32_T sfEvent_e;                   /* '<Root>/MATLAB Function1' */
+  int32_T sfEvent;                     /* '<Root>/MATLAB Function1' */
   int32_T sfEvent_p;                   /* '<Root>/MATLAB Function' */
-  boolean_T Integrator1_DWORK1;        /* '<S9>/Integrator1' */
-  boolean_T doneDoubleBufferReInit;    /* '<Root>/MATLAB Function2' */
-  boolean_T idx_not_empty;             /* '<Root>/MATLAB Function2' */
-  boolean_T count_not_empty;           /* '<Root>/MATLAB Function2' */
-  boolean_T doneDoubleBufferReInit_i;  /* '<Root>/MATLAB Function1' */
+  boolean_T Integrator1_DWORK1;        /* '<S8>/Integrator1' */
+  boolean_T doneDoubleBufferReInit;    /* '<Root>/MATLAB Function1' */
+  boolean_T cmd_not_empty;             /* '<Root>/MATLAB Function1' */
   boolean_T doneDoubleBufferReInit_n;  /* '<Root>/MATLAB Function' */
 } DW_TrajRunner_T;
 
 /* Continuous states (default storage) */
 typedef struct {
-  real_T Integrator_CSTATE;            /* '<S8>/Integrator' */
-  real_T Integrator1_CSTATE;           /* '<S9>/Integrator1' */
-  real_T Integrator2_CSTATE;           /* '<S9>/Integrator2' */
+  real_T Integrator_CSTATE;            /* '<S7>/Integrator' */
+  real_T Integrator1_CSTATE;           /* '<S8>/Integrator1' */
+  real_T Integrator2_CSTATE;           /* '<S8>/Integrator2' */
 } X_TrajRunner_T;
 
 /* State derivatives (default storage) */
 typedef struct {
-  real_T Integrator_CSTATE;            /* '<S8>/Integrator' */
-  real_T Integrator1_CSTATE;           /* '<S9>/Integrator1' */
-  real_T Integrator2_CSTATE;           /* '<S9>/Integrator2' */
+  real_T Integrator_CSTATE;            /* '<S7>/Integrator' */
+  real_T Integrator1_CSTATE;           /* '<S8>/Integrator1' */
+  real_T Integrator2_CSTATE;           /* '<S8>/Integrator2' */
 } XDot_TrajRunner_T;
 
 /* State disabled  */
 typedef struct {
-  boolean_T Integrator_CSTATE;         /* '<S8>/Integrator' */
-  boolean_T Integrator1_CSTATE;        /* '<S9>/Integrator1' */
-  boolean_T Integrator2_CSTATE;        /* '<S9>/Integrator2' */
+  boolean_T Integrator_CSTATE;         /* '<S7>/Integrator' */
+  boolean_T Integrator1_CSTATE;        /* '<S8>/Integrator1' */
+  boolean_T Integrator2_CSTATE;        /* '<S8>/Integrator2' */
 } XDis_TrajRunner_T;
 
 /* Zero-crossing (trigger) state */
 typedef struct {
-  ZCSigState Integrator_Reset_ZCE;     /* '<S8>/Integrator' */
+  ZCSigState Integrator_Reset_ZCE;     /* '<S7>/Integrator' */
 } PrevZCX_TrajRunner_T;
 
 #ifndef ODE4_INTG
@@ -1111,26 +1110,26 @@ typedef struct {
 /* Parameters (default storage) */
 struct P_TrajRunner_T_ {
   real_T Ramp_InitialOutput;           /* Mask Parameter: Ramp_InitialOutput
-                                        * Referenced by: '<S7>/Constant1'
+                                        * Referenced by: '<S6>/Constant1'
                                         */
   real_T ColorConstant_color[3];       /* Mask Parameter: ColorConstant_color
                                         * Referenced by: '<S1>/Constant'
                                         */
   real_T undOrder25HzfilterbasedonFFT_in;
                               /* Mask Parameter: undOrder25HzfilterbasedonFFT_in
-                               * Referenced by: '<S9>/wn'
+                               * Referenced by: '<S8>/wn'
                                */
   real_T undOrder25HzfilterbasedonFFT__a;
                               /* Mask Parameter: undOrder25HzfilterbasedonFFT__a
-                               * Referenced by: '<S9>/zt'
+                               * Referenced by: '<S8>/zt'
                                */
   real_T Ramp_slope;                   /* Mask Parameter: Ramp_slope
-                                        * Referenced by: '<S7>/Step'
+                                        * Referenced by: '<S6>/Step'
                                         */
   real_T Ramp_start;                   /* Mask Parameter: Ramp_start
                                         * Referenced by:
-                                        *   '<S7>/Constant'
-                                        *   '<S7>/Step'
+                                        *   '<S6>/Constant'
+                                        *   '<S6>/Step'
                                         */
   uint32_T HILWrite_other_channels[13];
                                       /* Mask Parameter: HILWrite_other_channels
@@ -1148,17 +1147,17 @@ struct P_TrajRunner_T_ {
   real_T OPEN_Value;                   /* Expression: 0
                                         * Referenced by: '<Root>/ OPEN'
                                         */
-  real_T run_Value;                    /* Expression: 1
-                                        * Referenced by: '<Root>/run'
+  real_T CLOSE1_Value;                 /* Expression: 1
+                                        * Referenced by: '<Root>/CLOSE 1'
                                         */
-  real_T stop_Value;                   /* Expression: 0
-                                        * Referenced by: '<Root>/stop'
+  real_T OPEN1_Value;                  /* Expression: 0
+                                        * Referenced by: '<Root>/ OPEN1'
                                         */
-  real_T reverse_Value;                /* Expression: 1
-                                        * Referenced by: '<Root>/reverse'
+  real_T CLOSE2_Value;                 /* Expression: 1
+                                        * Referenced by: '<Root>/CLOSE 2'
                                         */
-  real_T forwards_Value;               /* Expression: 0
-                                        * Referenced by: '<Root>/forwards'
+  real_T OPEN2_Value;                  /* Expression: 0
+                                        * Referenced by: '<Root>/ OPEN2'
                                         */
   real_T Constant2_Value;              /* Expression: 0
                                         * Referenced by: '<Root>/Constant2'
@@ -1199,7 +1198,7 @@ struct P_TrajRunner_T_ {
   real_T HILInitializePositionMode_OOWat[12];/* Expression: watchdog_other_outputs
                                               * Referenced by: '<Root>/HIL Initialize (Position Mode)'
                                               */
-  real_T DefaultCmd_Value[4];          /* Expression: [0;-1.1318;-0.7546;0]
+  real_T DefaultCmd_Value[4];          /* Expression: [0;-1.1318;-1.63712;0]
                                         * Referenced by: '<Root>/Default Cmd'
                                         */
   real_T Base_InitialPhase;            /* Expression: initial_phase
@@ -1221,7 +1220,7 @@ struct P_TrajRunner_T_ {
                                         * Referenced by: '<Root>/Shoulder'
                                         */
   real_T Step_Y0;                      /* Expression: 0
-                                        * Referenced by: '<S7>/Step'
+                                        * Referenced by: '<S6>/Step'
                                         */
   real_T Constant6_Value;              /* Expression: -pi/2
                                         * Referenced by: '<Root>/Constant6'
@@ -1235,51 +1234,44 @@ struct P_TrajRunner_T_ {
   real_T Wrist_Frequency;              /* Expression: i_frequency
                                         * Referenced by: '<Root>/Wrist'
                                         */
-  real_T Constant_Value[3];            /* Expression: [-0.075 0 0.875]
+  real_T Constant_Value[4];            /* Expression: [0 0 -pi/2 0]
                                         * Referenced by: '<Root>/Constant'
                                         */
-  real_T Constant12_Value[3];          /* Expression: [1.5 0 0]
+  real_T Constant12_Value[4];          /* Expression: [0.5 0 0 0]
                                         * Referenced by: '<Root>/Constant12'
                                         */
-  real_T Constant5_Value[3];           /* Expression: [0.03 0.03 0.03]
+  real_T Constant5_Value[4];           /* Expression: [0.5 0.5 0.5 0.5]
                                         * Referenced by: '<Root>/Constant5'
                                         */
-  real_T Constant11_Value[3];          /* Expression: [0.2 0.2 0.2]
+  real_T Constant11_Value[4];          /* Expression: [0.7 0.7 0.7 0.7]
                                         * Referenced by: '<Root>/Constant11'
                                         */
-  real_T Constant13_Value[3];          /* Expression: [0.07 0.07 0.07]
+  real_T Constant13_Value[4];          /* Expression: [0.07 0.07 0.07 0.07]
                                         * Referenced by: '<Root>/Constant13'
+                                        */
+  real_T Constant7_Value;              /* Expression: 1
+                                        * Referenced by: '<Root>/Constant7'
+                                        */
+  real_T Constant18_Value;             /* Expression: qc_get_step_size
+                                        * Referenced by: '<Root>/Constant18'
                                         */
   real_T Constant1_Value[4];           /* Expression: [0 0 0 0]
                                         * Referenced by: '<Root>/Constant1'
                                         */
-  real_T Constant15_Value[96];
-  /* Expression: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;-1.13184 -1.13099 -1.12516 -1.10965 -1.08046 -1.03455 -0.97024 -0.88766 -0.78957 -0.68302 -0.5819 -0.50317 -0.45059 -0.41483 -0.38573 -0.36205 -0.34198 -0.32505 -0.31135 -0.30109 -0.29427 -0.29053 -0.2891 -0.28889;-0.75455 -0.75523 -0.75992 -0.77237 -0.79572 -0.83218 -0.88254 -0.94546 -1.01591 -1.082 -1.12002 -1.10135 -1.02304 -0.9073 -0.76354 -0.61795 -0.4826 -0.36555 -0.27168 -0.20284 -0.15808 -0.13389 -0.12468 -0.12334;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-   * Referenced by: '<Root>/Constant15'
-   */
-  real_T Constant16_Value;             /* Expression: 20
-                                        * Referenced by: '<Root>/Constant16'
-                                        */
-  real_T Constant17_Value;             /* Expression: 24
-                                        * Referenced by: '<Root>/Constant17'
-                                        */
-  real_T Constant7_Value;              /* Expression: qc_get_step_size
-                                        * Referenced by: '<Root>/Constant7'
-                                        */
   real_T Integrator_IC;                /* Expression: 0.1
-                                        * Referenced by: '<S8>/Integrator'
+                                        * Referenced by: '<S7>/Integrator'
                                         */
   real_T Integrator_UpperSat;          /* Expression: 0.9
-                                        * Referenced by: '<S8>/Integrator'
+                                        * Referenced by: '<S7>/Integrator'
                                         */
   real_T Integrator_LowerSat;          /* Expression: 0.1
-                                        * Referenced by: '<S8>/Integrator'
+                                        * Referenced by: '<S7>/Integrator'
                                         */
   real_T openposition_Value;           /* Expression: 0.1
-                                        * Referenced by: '<S8>/open position'
+                                        * Referenced by: '<S7>/open position'
                                         */
   real_T Switch_Threshold;             /* Expression: 0
-                                        * Referenced by: '<S8>/Switch'
+                                        * Referenced by: '<S7>/Switch'
                                         */
   real_T SmoothSignalGenerator_InitialPh;/* Expression: initial_phase
                                           * Referenced by: '<S2>/Smooth Signal Generator'
@@ -1294,19 +1286,19 @@ struct P_TrajRunner_T_ {
                                         * Referenced by: '<S2>/Bias'
                                         */
   real_T x0_Value;                     /* Expression: input_init
-                                        * Referenced by: '<S9>/x0'
+                                        * Referenced by: '<S8>/x0'
                                         */
   real_T SoftGripCurrentA_Value;       /* Expression: 0.25
-                                        * Referenced by: '<S8>/Soft-Grip Current (A)'
+                                        * Referenced by: '<S7>/Soft-Grip Current (A)'
                                         */
   real_T Constant_Value_i;             /* Expression: 2
-                                        * Referenced by: '<S9>/Constant'
+                                        * Referenced by: '<S8>/Constant'
                                         */
   real_T Integrator2_IC;               /* Expression: 0
-                                        * Referenced by: '<S9>/Integrator2'
+                                        * Referenced by: '<S8>/Integrator2'
                                         */
   real_T Gain2_Gain;                   /* Expression: 10
-                                        * Referenced by: '<S8>/Gain2'
+                                        * Referenced by: '<S7>/Gain2'
                                         */
   real_T Elbow_InitialPhase;           /* Expression: initial_phase
                                         * Referenced by: '<Root>/Elbow'
@@ -1701,10 +1693,9 @@ extern RT_MODEL_TrajRunner_T *const TrajRunner_M;
  * '<S2>'   : 'TrajRunner/Hardware Plant P(s)'
  * '<S3>'   : 'TrajRunner/MATLAB Function'
  * '<S4>'   : 'TrajRunner/MATLAB Function1'
- * '<S5>'   : 'TrajRunner/MATLAB Function2'
- * '<S6>'   : 'TrajRunner/Powered by QUARC'
- * '<S7>'   : 'TrajRunner/Ramp'
- * '<S8>'   : 'TrajRunner/Hardware Plant P(s)/Gripper Control'
- * '<S9>'   : 'TrajRunner/Hardware Plant P(s)/Gripper Control/2nd Order 25Hz filter (based on FFT)'
+ * '<S5>'   : 'TrajRunner/Powered by QUARC'
+ * '<S6>'   : 'TrajRunner/Ramp'
+ * '<S7>'   : 'TrajRunner/Hardware Plant P(s)/Gripper Control'
+ * '<S8>'   : 'TrajRunner/Hardware Plant P(s)/Gripper Control/2nd Order 25Hz filter (based on FFT)'
  */
 #endif                                 /* TrajRunner_h_ */

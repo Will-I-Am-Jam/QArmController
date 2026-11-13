@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.49
+ * Model version              : 13.55
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Nov 13 11:26:08 2026
+ * C source code generated on : Fri Nov 13 13:36:25 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -38,7 +38,6 @@
 
 /* A global buffer for storing error messages (defined in quanser_common library) */
 EXTERN char _rt_error_message[512];
-extern real_T rt_roundd_snf(real_T u);
 
 /* private model entry point functions */
 extern void TrajRunner_derivatives(void);

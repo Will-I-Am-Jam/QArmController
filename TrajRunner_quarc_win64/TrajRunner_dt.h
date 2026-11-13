@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.49
+ * Model version              : 13.55
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Nov 13 11:26:08 2026
+ * C source code generated on : Fri Nov 13 13:36:25 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -74,12 +74,12 @@ static const char_T * rtDataTypeNames[] = {
 
 /* data type transitions for block I/O structure */
 static DataTypeTransition rtBTransitions[] = {
-  { (char_T *)(&TrajRunner_B.HILReadTimebase1_o1), 0, 0, 52 }
+  { (char_T *)(&TrajRunner_B.HILReadTimebase1_o1), 0, 0, 47 }
   ,
 
   { (char_T *)(&TrajRunner_DW.SampleTime_PreviousTime), 15, 0, 1 },
 
-  { (char_T *)(&TrajRunner_DW.HILInitializePositionMode_OOVal[0]), 0, 0, 53 },
+  { (char_T *)(&TrajRunner_DW.HILInitializePositionMode_OOVal[0]), 0, 0, 55 },
 
   { (char_T *)(&TrajRunner_DW.HILInitializePositionMode_Card), 16, 0, 1 },
 
@@ -89,9 +89,9 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&TrajRunner_DW.Scope1_PWORK.LoggedData), 11, 0, 14 },
 
-  { (char_T *)(&TrajRunner_DW.HILInitializePositionMode_Clock), 6, 0, 4 },
+  { (char_T *)(&TrajRunner_DW.HILInitializePositionMode_Clock), 6, 0, 3 },
 
-  { (char_T *)(&TrajRunner_DW.Integrator1_DWORK1), 8, 0, 6 }
+  { (char_T *)(&TrajRunner_DW.Integrator1_DWORK1), 8, 0, 4 }
 };
 
 /* data type transition table for block I/O structure */
@@ -106,7 +106,7 @@ static DataTypeTransition rtPTransitions[] = {
 
   { (char_T *)(&TrajRunner_P.HILWrite_other_channels[0]), 7, 0, 13 },
 
-  { (char_T *)(&TrajRunner_P.Constant4_Value), 0, 0, 195 },
+  { (char_T *)(&TrajRunner_P.Constant4_Value), 0, 0, 103 },
 
   { (char_T *)(&TrajRunner_P.HILInitializePositionMode_CKCha), 6, 0, 3 },
 

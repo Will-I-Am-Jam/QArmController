@@ -11,14 +11,14 @@ throw_dir = 0;       % direction to throw, as a base angle (deg), within +-70
 
 % arc in the vertical plane of the throw, coordinates [forward, up] (m)
 
-center = [0, 0];   % arc center (m)
-radius = 0.45;              % (m)
-th_start = 140;          % wind-up angle (deg)
+center = [0, 0.14];   % arc center (m)
+radius = 0.70;              % (m)
+th_start = 120;          % wind-up angle (deg)
 th_end = 30;             % end of the follow-through (deg)
 release_elev = 0;      % release when the tip velocity points this far above horizontal (deg),
                          % negative = past the top, heading down
-v_release = 1.5;        % tip speed at release (m/s), ~0.45 keeps joints under 1 rad/s
-
+v_angluar = 0.5;        % anuglar speed at release (rad/s), ~0.45 keeps joints under 1 rad/s
+v_release = v_angluar * radius;
 % moving forward over the arc, the velocity points release_elev above
 % horizontal at angle 90 + release_elev
 th_rel = 90 + release_elev;
@@ -73,6 +73,12 @@ fprintf('Duration: %.2f s, %d commands\n', t(end), numel(t));
 fprintf('Release at step %d (t = %.2f s)\n', release_idx, t_release);
 fprintf('  p_release = %s m\n', mat2str(round(p_release', 3)));
 fprintf('  v_release = %s m/s\n', mat2str(round(v_release_vec', 3)));
+
+% release joint angles and angular velocities, for ReleaseCheck's phi_goal and phidot_goal
+phi_release = phi_cmds(:, release_idx);
+phidot_release = (phi_cmds(:, release_idx+1) - phi_cmds(:, release_idx-1)) * f_cmd/2;
+fprintf('  phi_release    = %s rad\n', mat2str(round(phi_release', 4)));
+fprintf('  phidot_release = %s rad/s\n', mat2str(round(phidot_release', 4)));
 
 %% plot the throw in its vertical plane
 figure;

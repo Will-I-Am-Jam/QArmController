@@ -70,8 +70,8 @@
             paramMap.sections(2) = section;
             clear section
 
-            section.nData     = 59;
-            section.data(59)  = dumData; %prealloc
+            section.nData     = 57;
+            section.data(57)  = dumData; %prealloc
 
                     ;% TrajRunner_P.Constant4_Value
                     section.data(1).logicalSrcIdx = 7;
@@ -89,19 +89,19 @@
                     section.data(4).logicalSrcIdx = 10;
                     section.data(4).dtTransOffset = 3;
 
-                    ;% TrajRunner_P.run_Value
+                    ;% TrajRunner_P.CLOSE1_Value
                     section.data(5).logicalSrcIdx = 11;
                     section.data(5).dtTransOffset = 4;
 
-                    ;% TrajRunner_P.stop_Value
+                    ;% TrajRunner_P.OPEN1_Value
                     section.data(6).logicalSrcIdx = 12;
                     section.data(6).dtTransOffset = 5;
 
-                    ;% TrajRunner_P.reverse_Value
+                    ;% TrajRunner_P.CLOSE2_Value
                     section.data(7).logicalSrcIdx = 13;
                     section.data(7).dtTransOffset = 6;
 
-                    ;% TrajRunner_P.forwards_Value
+                    ;% TrajRunner_P.OPEN2_Value
                     section.data(8).logicalSrcIdx = 14;
                     section.data(8).dtTransOffset = 7;
 
@@ -207,107 +207,99 @@
 
                     ;% TrajRunner_P.Constant12_Value
                     section.data(34).logicalSrcIdx = 40;
-                    section.data(34).dtTransOffset = 63;
+                    section.data(34).dtTransOffset = 64;
 
                     ;% TrajRunner_P.Constant5_Value
                     section.data(35).logicalSrcIdx = 41;
-                    section.data(35).dtTransOffset = 66;
+                    section.data(35).dtTransOffset = 68;
 
                     ;% TrajRunner_P.Constant11_Value
                     section.data(36).logicalSrcIdx = 42;
-                    section.data(36).dtTransOffset = 69;
+                    section.data(36).dtTransOffset = 72;
 
                     ;% TrajRunner_P.Constant13_Value
                     section.data(37).logicalSrcIdx = 43;
-                    section.data(37).dtTransOffset = 72;
-
-                    ;% TrajRunner_P.Constant1_Value
-                    section.data(38).logicalSrcIdx = 44;
-                    section.data(38).dtTransOffset = 75;
-
-                    ;% TrajRunner_P.Constant15_Value
-                    section.data(39).logicalSrcIdx = 45;
-                    section.data(39).dtTransOffset = 79;
-
-                    ;% TrajRunner_P.Constant16_Value
-                    section.data(40).logicalSrcIdx = 46;
-                    section.data(40).dtTransOffset = 175;
-
-                    ;% TrajRunner_P.Constant17_Value
-                    section.data(41).logicalSrcIdx = 47;
-                    section.data(41).dtTransOffset = 176;
+                    section.data(37).dtTransOffset = 76;
 
                     ;% TrajRunner_P.Constant7_Value
-                    section.data(42).logicalSrcIdx = 48;
-                    section.data(42).dtTransOffset = 177;
+                    section.data(38).logicalSrcIdx = 44;
+                    section.data(38).dtTransOffset = 80;
+
+                    ;% TrajRunner_P.Constant18_Value
+                    section.data(39).logicalSrcIdx = 45;
+                    section.data(39).dtTransOffset = 81;
+
+                    ;% TrajRunner_P.Constant1_Value
+                    section.data(40).logicalSrcIdx = 46;
+                    section.data(40).dtTransOffset = 82;
 
                     ;% TrajRunner_P.Integrator_IC
-                    section.data(43).logicalSrcIdx = 49;
-                    section.data(43).dtTransOffset = 178;
+                    section.data(41).logicalSrcIdx = 47;
+                    section.data(41).dtTransOffset = 86;
 
                     ;% TrajRunner_P.Integrator_UpperSat
-                    section.data(44).logicalSrcIdx = 50;
-                    section.data(44).dtTransOffset = 179;
+                    section.data(42).logicalSrcIdx = 48;
+                    section.data(42).dtTransOffset = 87;
 
                     ;% TrajRunner_P.Integrator_LowerSat
-                    section.data(45).logicalSrcIdx = 51;
-                    section.data(45).dtTransOffset = 180;
+                    section.data(43).logicalSrcIdx = 49;
+                    section.data(43).dtTransOffset = 88;
 
                     ;% TrajRunner_P.openposition_Value
-                    section.data(46).logicalSrcIdx = 52;
-                    section.data(46).dtTransOffset = 181;
+                    section.data(44).logicalSrcIdx = 50;
+                    section.data(44).dtTransOffset = 89;
 
                     ;% TrajRunner_P.Switch_Threshold
-                    section.data(47).logicalSrcIdx = 53;
-                    section.data(47).dtTransOffset = 182;
+                    section.data(45).logicalSrcIdx = 51;
+                    section.data(45).dtTransOffset = 90;
 
                     ;% TrajRunner_P.SmoothSignalGenerator_InitialPh
-                    section.data(48).logicalSrcIdx = 54;
-                    section.data(48).dtTransOffset = 183;
+                    section.data(46).logicalSrcIdx = 52;
+                    section.data(46).dtTransOffset = 91;
 
                     ;% TrajRunner_P.SmoothSignalGenerator_Amplitude
-                    section.data(49).logicalSrcIdx = 55;
-                    section.data(49).dtTransOffset = 184;
+                    section.data(47).logicalSrcIdx = 53;
+                    section.data(47).dtTransOffset = 92;
 
                     ;% TrajRunner_P.SmoothSignalGenerator_Frequency
-                    section.data(50).logicalSrcIdx = 56;
-                    section.data(50).dtTransOffset = 185;
+                    section.data(48).logicalSrcIdx = 54;
+                    section.data(48).dtTransOffset = 93;
 
                     ;% TrajRunner_P.Bias_Bias
-                    section.data(51).logicalSrcIdx = 57;
-                    section.data(51).dtTransOffset = 186;
+                    section.data(49).logicalSrcIdx = 55;
+                    section.data(49).dtTransOffset = 94;
 
                     ;% TrajRunner_P.x0_Value
-                    section.data(52).logicalSrcIdx = 58;
-                    section.data(52).dtTransOffset = 187;
+                    section.data(50).logicalSrcIdx = 56;
+                    section.data(50).dtTransOffset = 95;
 
                     ;% TrajRunner_P.SoftGripCurrentA_Value
-                    section.data(53).logicalSrcIdx = 59;
-                    section.data(53).dtTransOffset = 188;
+                    section.data(51).logicalSrcIdx = 57;
+                    section.data(51).dtTransOffset = 96;
 
                     ;% TrajRunner_P.Constant_Value_i
-                    section.data(54).logicalSrcIdx = 60;
-                    section.data(54).dtTransOffset = 189;
+                    section.data(52).logicalSrcIdx = 58;
+                    section.data(52).dtTransOffset = 97;
 
                     ;% TrajRunner_P.Integrator2_IC
-                    section.data(55).logicalSrcIdx = 61;
-                    section.data(55).dtTransOffset = 190;
+                    section.data(53).logicalSrcIdx = 59;
+                    section.data(53).dtTransOffset = 98;
 
                     ;% TrajRunner_P.Gain2_Gain
-                    section.data(56).logicalSrcIdx = 62;
-                    section.data(56).dtTransOffset = 191;
+                    section.data(54).logicalSrcIdx = 60;
+                    section.data(54).dtTransOffset = 99;
 
                     ;% TrajRunner_P.Elbow_InitialPhase
-                    section.data(57).logicalSrcIdx = 63;
-                    section.data(57).dtTransOffset = 192;
+                    section.data(55).logicalSrcIdx = 61;
+                    section.data(55).dtTransOffset = 100;
 
                     ;% TrajRunner_P.Elbow_Amplitude
-                    section.data(58).logicalSrcIdx = 64;
-                    section.data(58).dtTransOffset = 193;
+                    section.data(56).logicalSrcIdx = 62;
+                    section.data(56).dtTransOffset = 101;
 
                     ;% TrajRunner_P.Elbow_Frequency
-                    section.data(59).logicalSrcIdx = 65;
-                    section.data(59).dtTransOffset = 194;
+                    section.data(57).logicalSrcIdx = 63;
+                    section.data(57).dtTransOffset = 102;
 
             nTotData = nTotData + section.nData;
             paramMap.sections(3) = section;
@@ -317,15 +309,15 @@
             section.data(3)  = dumData; %prealloc
 
                     ;% TrajRunner_P.HILInitializePositionMode_CKCha
-                    section.data(1).logicalSrcIdx = 66;
+                    section.data(1).logicalSrcIdx = 64;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOWat
-                    section.data(2).logicalSrcIdx = 67;
+                    section.data(2).logicalSrcIdx = 65;
                     section.data(2).dtTransOffset = 1;
 
                     ;% TrajRunner_P.HILReadTimebase1_Clock
-                    section.data(3).logicalSrcIdx = 68;
+                    section.data(3).logicalSrcIdx = 66;
                     section.data(3).dtTransOffset = 2;
 
             nTotData = nTotData + section.nData;
@@ -336,23 +328,23 @@
             section.data(5)  = dumData; %prealloc
 
                     ;% TrajRunner_P.HILInitializePositionMode_AICha
-                    section.data(1).logicalSrcIdx = 69;
+                    section.data(1).logicalSrcIdx = 67;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_P.HILInitializePositionMode_OOCha
-                    section.data(2).logicalSrcIdx = 70;
+                    section.data(2).logicalSrcIdx = 68;
                     section.data(2).dtTransOffset = 5;
 
                     ;% TrajRunner_P.HILReadTimebase1_SamplesInBuffe
-                    section.data(3).logicalSrcIdx = 71;
+                    section.data(3).logicalSrcIdx = 69;
                     section.data(3).dtTransOffset = 18;
 
                     ;% TrajRunner_P.HILReadTimebase1_AnalogChannels
-                    section.data(4).logicalSrcIdx = 72;
+                    section.data(4).logicalSrcIdx = 70;
                     section.data(4).dtTransOffset = 19;
 
                     ;% TrajRunner_P.HILReadTimebase1_OtherChannels
-                    section.data(5).logicalSrcIdx = 73;
+                    section.data(5).logicalSrcIdx = 71;
                     section.data(5).dtTransOffset = 24;
 
             nTotData = nTotData + section.nData;
@@ -363,151 +355,151 @@
             section.data(37)  = dumData; %prealloc
 
                     ;% TrajRunner_P.HILInitializePositionMode_Activ
-                    section.data(1).logicalSrcIdx = 74;
+                    section.data(1).logicalSrcIdx = 72;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOTer
-                    section.data(2).logicalSrcIdx = 75;
+                    section.data(2).logicalSrcIdx = 73;
                     section.data(2).dtTransOffset = 1;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOExi
-                    section.data(3).logicalSrcIdx = 76;
+                    section.data(3).logicalSrcIdx = 74;
                     section.data(3).dtTransOffset = 2;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOTer
-                    section.data(4).logicalSrcIdx = 77;
+                    section.data(4).logicalSrcIdx = 75;
                     section.data(4).dtTransOffset = 3;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOExi
-                    section.data(5).logicalSrcIdx = 78;
+                    section.data(5).logicalSrcIdx = 76;
                     section.data(5).dtTransOffset = 4;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POTer
-                    section.data(6).logicalSrcIdx = 79;
+                    section.data(6).logicalSrcIdx = 77;
                     section.data(6).dtTransOffset = 5;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POExi
-                    section.data(7).logicalSrcIdx = 80;
+                    section.data(7).logicalSrcIdx = 78;
                     section.data(7).dtTransOffset = 6;
 
                     ;% TrajRunner_P.HILInitializePositionMode_CKPSt
-                    section.data(8).logicalSrcIdx = 81;
+                    section.data(8).logicalSrcIdx = 79;
                     section.data(8).dtTransOffset = 7;
 
                     ;% TrajRunner_P.HILInitializePositionMode_CKPEn
-                    section.data(9).logicalSrcIdx = 82;
+                    section.data(9).logicalSrcIdx = 80;
                     section.data(9).dtTransOffset = 8;
 
                     ;% TrajRunner_P.HILInitializePositionMode_CKSta
-                    section.data(10).logicalSrcIdx = 83;
+                    section.data(10).logicalSrcIdx = 81;
                     section.data(10).dtTransOffset = 9;
 
                     ;% TrajRunner_P.HILInitializePositionMode_CKEnt
-                    section.data(11).logicalSrcIdx = 84;
+                    section.data(11).logicalSrcIdx = 82;
                     section.data(11).dtTransOffset = 10;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AIPSt
-                    section.data(12).logicalSrcIdx = 85;
+                    section.data(12).logicalSrcIdx = 83;
                     section.data(12).dtTransOffset = 11;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AIPEn
-                    section.data(13).logicalSrcIdx = 86;
+                    section.data(13).logicalSrcIdx = 84;
                     section.data(13).dtTransOffset = 12;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOPSt
-                    section.data(14).logicalSrcIdx = 87;
+                    section.data(14).logicalSrcIdx = 85;
                     section.data(14).dtTransOffset = 13;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOPEn
-                    section.data(15).logicalSrcIdx = 88;
+                    section.data(15).logicalSrcIdx = 86;
                     section.data(15).dtTransOffset = 14;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOSta
-                    section.data(16).logicalSrcIdx = 89;
+                    section.data(16).logicalSrcIdx = 87;
                     section.data(16).dtTransOffset = 15;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AOEnt
-                    section.data(17).logicalSrcIdx = 90;
+                    section.data(17).logicalSrcIdx = 88;
                     section.data(17).dtTransOffset = 16;
 
                     ;% TrajRunner_P.HILInitializePositionMode_AORes
-                    section.data(18).logicalSrcIdx = 91;
+                    section.data(18).logicalSrcIdx = 89;
                     section.data(18).dtTransOffset = 17;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOPSt
-                    section.data(19).logicalSrcIdx = 92;
+                    section.data(19).logicalSrcIdx = 90;
                     section.data(19).dtTransOffset = 18;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOPEn
-                    section.data(20).logicalSrcIdx = 93;
+                    section.data(20).logicalSrcIdx = 91;
                     section.data(20).dtTransOffset = 19;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOSta
-                    section.data(21).logicalSrcIdx = 94;
+                    section.data(21).logicalSrcIdx = 92;
                     section.data(21).dtTransOffset = 20;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOEnt
-                    section.data(22).logicalSrcIdx = 95;
+                    section.data(22).logicalSrcIdx = 93;
                     section.data(22).dtTransOffset = 21;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DORes
-                    section.data(23).logicalSrcIdx = 96;
+                    section.data(23).logicalSrcIdx = 94;
                     section.data(23).dtTransOffset = 22;
 
                     ;% TrajRunner_P.HILInitializePositionMode_EIPSt
-                    section.data(24).logicalSrcIdx = 97;
+                    section.data(24).logicalSrcIdx = 95;
                     section.data(24).dtTransOffset = 23;
 
                     ;% TrajRunner_P.HILInitializePositionMode_EIPEn
-                    section.data(25).logicalSrcIdx = 98;
+                    section.data(25).logicalSrcIdx = 96;
                     section.data(25).dtTransOffset = 24;
 
                     ;% TrajRunner_P.HILInitializePositionMode_EISta
-                    section.data(26).logicalSrcIdx = 99;
+                    section.data(26).logicalSrcIdx = 97;
                     section.data(26).dtTransOffset = 25;
 
                     ;% TrajRunner_P.HILInitializePositionMode_EIEnt
-                    section.data(27).logicalSrcIdx = 100;
+                    section.data(27).logicalSrcIdx = 98;
                     section.data(27).dtTransOffset = 26;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POPSt
-                    section.data(28).logicalSrcIdx = 101;
+                    section.data(28).logicalSrcIdx = 99;
                     section.data(28).dtTransOffset = 27;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POPEn
-                    section.data(29).logicalSrcIdx = 102;
+                    section.data(29).logicalSrcIdx = 100;
                     section.data(29).dtTransOffset = 28;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POSta
-                    section.data(30).logicalSrcIdx = 103;
+                    section.data(30).logicalSrcIdx = 101;
                     section.data(30).dtTransOffset = 29;
 
                     ;% TrajRunner_P.HILInitializePositionMode_POEnt
-                    section.data(31).logicalSrcIdx = 104;
+                    section.data(31).logicalSrcIdx = 102;
                     section.data(31).dtTransOffset = 30;
 
                     ;% TrajRunner_P.HILInitializePositionMode_PORes
-                    section.data(32).logicalSrcIdx = 105;
+                    section.data(32).logicalSrcIdx = 103;
                     section.data(32).dtTransOffset = 31;
 
                     ;% TrajRunner_P.HILInitializePositionMode_OORes
-                    section.data(33).logicalSrcIdx = 106;
+                    section.data(33).logicalSrcIdx = 104;
                     section.data(33).dtTransOffset = 32;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOFin
-                    section.data(34).logicalSrcIdx = 107;
+                    section.data(34).logicalSrcIdx = 105;
                     section.data(34).dtTransOffset = 33;
 
                     ;% TrajRunner_P.HILInitializePositionMode_DOIni
-                    section.data(35).logicalSrcIdx = 108;
+                    section.data(35).logicalSrcIdx = 106;
                     section.data(35).dtTransOffset = 34;
 
                     ;% TrajRunner_P.HILReadTimebase1_Active
-                    section.data(36).logicalSrcIdx = 109;
+                    section.data(36).logicalSrcIdx = 107;
                     section.data(36).dtTransOffset = 35;
 
                     ;% TrajRunner_P.HILWrite_Active
-                    section.data(37).logicalSrcIdx = 110;
+                    section.data(37).logicalSrcIdx = 108;
                     section.data(37).dtTransOffset = 36;
 
             nTotData = nTotData + section.nData;
@@ -518,47 +510,47 @@
             section.data(11)  = dumData; %prealloc
 
                     ;% TrajRunner_P.ManualSwitch2_CurrentSetting
-                    section.data(1).logicalSrcIdx = 111;
+                    section.data(1).logicalSrcIdx = 109;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_P.ManualSwitch4_CurrentSetting
-                    section.data(2).logicalSrcIdx = 112;
+                    section.data(2).logicalSrcIdx = 110;
                     section.data(2).dtTransOffset = 1;
 
                     ;% TrajRunner_P.HILReadTimebase1_OverflowMode
-                    section.data(3).logicalSrcIdx = 113;
+                    section.data(3).logicalSrcIdx = 111;
                     section.data(3).dtTransOffset = 2;
 
                     ;% TrajRunner_P.ManualSwitch_CurrentSetting
-                    section.data(4).logicalSrcIdx = 114;
+                    section.data(4).logicalSrcIdx = 112;
                     section.data(4).dtTransOffset = 3;
 
                     ;% TrajRunner_P.ManualSwitch1_CurrentSetting
-                    section.data(5).logicalSrcIdx = 115;
+                    section.data(5).logicalSrcIdx = 113;
                     section.data(5).dtTransOffset = 4;
 
                     ;% TrajRunner_P.ManualSwitch3_CurrentSetting
-                    section.data(6).logicalSrcIdx = 116;
+                    section.data(6).logicalSrcIdx = 114;
                     section.data(6).dtTransOffset = 5;
 
                     ;% TrajRunner_P.MAIN_CurrentSetting
-                    section.data(7).logicalSrcIdx = 117;
+                    section.data(7).logicalSrcIdx = 115;
                     section.data(7).dtTransOffset = 6;
 
                     ;% TrajRunner_P.ManualSwitch5_CurrentSetting
-                    section.data(8).logicalSrcIdx = 118;
+                    section.data(8).logicalSrcIdx = 116;
                     section.data(8).dtTransOffset = 7;
 
                     ;% TrajRunner_P.ManualSwitch6_CurrentSetting
-                    section.data(9).logicalSrcIdx = 119;
+                    section.data(9).logicalSrcIdx = 117;
                     section.data(9).dtTransOffset = 8;
 
                     ;% TrajRunner_P.ManualSwitch7_CurrentSetting
-                    section.data(10).logicalSrcIdx = 120;
+                    section.data(10).logicalSrcIdx = 118;
                     section.data(10).dtTransOffset = 9;
 
                     ;% TrajRunner_P.MAIN1_CurrentSetting
-                    section.data(11).logicalSrcIdx = 121;
+                    section.data(11).logicalSrcIdx = 119;
                     section.data(11).dtTransOffset = 10;
 
             nTotData = nTotData + section.nData;
@@ -606,8 +598,8 @@
         ;%
         ;% Auto data (TrajRunner_B)
         ;%
-            section.nData     = 39;
-            section.data(39)  = dumData; %prealloc
+            section.nData     = 38;
+            section.data(38)  = dumData; %prealloc
 
                     ;% TrajRunner_B.HILReadTimebase1_o1
                     section.data(1).logicalSrcIdx = 0;
@@ -753,17 +745,13 @@
                     section.data(36).logicalSrcIdx = 35;
                     section.data(36).dtTransOffset = 41;
 
-                    ;% TrajRunner_B.phi
+                    ;% TrajRunner_B.phi_cmd
                     section.data(37).logicalSrcIdx = 36;
                     section.data(37).dtTransOffset = 42;
 
-                    ;% TrajRunner_B.p4
+                    ;% TrajRunner_B.newState
                     section.data(38).logicalSrcIdx = 37;
                     section.data(38).dtTransOffset = 46;
-
-                    ;% TrajRunner_B.v4
-                    section.data(39).logicalSrcIdx = 39;
-                    section.data(39).dtTransOffset = 49;
 
             nTotData = nTotData + section.nData;
             sigMap.sections(1) = section;
@@ -821,8 +809,8 @@
             dworkMap.sections(1) = section;
             clear section
 
-            section.nData     = 6;
-            section.data(6)  = dumData; %prealloc
+            section.nData     = 5;
+            section.data(5)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.HILInitializePositionMode_OOVal
                     section.data(1).logicalSrcIdx = 1;
@@ -840,13 +828,9 @@
                     section.data(4).logicalSrcIdx = 4;
                     section.data(4).dtTransOffset = 38;
 
-                    ;% TrajRunner_DW.idx
+                    ;% TrajRunner_DW.cmd
                     section.data(5).logicalSrcIdx = 5;
                     section.data(5).dtTransOffset = 51;
-
-                    ;% TrajRunner_DW.count
-                    section.data(6).logicalSrcIdx = 6;
-                    section.data(6).dtTransOffset = 52;
 
             nTotData = nTotData + section.nData;
             dworkMap.sections(2) = section;
@@ -856,7 +840,7 @@
             section.data(1)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.HILInitializePositionMode_Card
-                    section.data(1).logicalSrcIdx = 7;
+                    section.data(1).logicalSrcIdx = 6;
                     section.data(1).dtTransOffset = 0;
 
             nTotData = nTotData + section.nData;
@@ -867,7 +851,7 @@
             section.data(1)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.HILReadTimebase1_Task
-                    section.data(1).logicalSrcIdx = 8;
+                    section.data(1).logicalSrcIdx = 7;
                     section.data(1).dtTransOffset = 0;
 
             nTotData = nTotData + section.nData;
@@ -878,62 +862,66 @@
             section.data(5)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.Base_RWORK.Amp
-                    section.data(1).logicalSrcIdx = 9;
+                    section.data(1).logicalSrcIdx = 8;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_DW.Shoulder_RWORK.Amp
-                    section.data(2).logicalSrcIdx = 10;
+                    section.data(2).logicalSrcIdx = 9;
                     section.data(2).dtTransOffset = 1;
 
                     ;% TrajRunner_DW.Wrist_RWORK.Amp
-                    section.data(3).logicalSrcIdx = 11;
+                    section.data(3).logicalSrcIdx = 10;
                     section.data(3).dtTransOffset = 2;
 
                     ;% TrajRunner_DW.SmoothSignalGenerator_RWORK.Amp
-                    section.data(4).logicalSrcIdx = 12;
+                    section.data(4).logicalSrcIdx = 11;
                     section.data(4).dtTransOffset = 3;
 
                     ;% TrajRunner_DW.Elbow_RWORK.Amp
-                    section.data(5).logicalSrcIdx = 13;
+                    section.data(5).logicalSrcIdx = 12;
                     section.data(5).dtTransOffset = 4;
 
             nTotData = nTotData + section.nData;
             dworkMap.sections(5) = section;
             clear section
 
-            section.nData     = 6;
-            section.data(6)  = dumData; %prealloc
+            section.nData     = 7;
+            section.data(7)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.Scope1_PWORK.LoggedData
-                    section.data(1).logicalSrcIdx = 14;
+                    section.data(1).logicalSrcIdx = 13;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_DW.Measurements_PWORK.LoggedData
-                    section.data(2).logicalSrcIdx = 15;
+                    section.data(2).logicalSrcIdx = 14;
                     section.data(2).dtTransOffset = 1;
 
                     ;% TrajRunner_DW.Scope_PWORK.LoggedData
-                    section.data(3).logicalSrcIdx = 16;
+                    section.data(3).logicalSrcIdx = 15;
                     section.data(3).dtTransOffset = 7;
 
+                    ;% TrajRunner_DW.Scope2_PWORK.LoggedData
+                    section.data(4).logicalSrcIdx = 16;
+                    section.data(4).dtTransOffset = 8;
+
                     ;% TrajRunner_DW.HILWrite_PWORK
-                    section.data(4).logicalSrcIdx = 17;
-                    section.data(4).dtTransOffset = 9;
+                    section.data(5).logicalSrcIdx = 17;
+                    section.data(5).dtTransOffset = 9;
 
                     ;% TrajRunner_DW.CurrentFilteration_PWORK.LoggedData
-                    section.data(5).logicalSrcIdx = 18;
-                    section.data(5).dtTransOffset = 10;
+                    section.data(6).logicalSrcIdx = 18;
+                    section.data(6).dtTransOffset = 10;
 
                     ;% TrajRunner_DW.GoalvsActualGripCurrent_PWORK.LoggedData
-                    section.data(6).logicalSrcIdx = 19;
-                    section.data(6).dtTransOffset = 12;
+                    section.data(7).logicalSrcIdx = 19;
+                    section.data(7).dtTransOffset = 12;
 
             nTotData = nTotData + section.nData;
             dworkMap.sections(6) = section;
             clear section
 
-            section.nData     = 4;
-            section.data(4)  = dumData; %prealloc
+            section.nData     = 3;
+            section.data(3)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.HILInitializePositionMode_Clock
                     section.data(1).logicalSrcIdx = 20;
@@ -943,44 +931,32 @@
                     section.data(2).logicalSrcIdx = 21;
                     section.data(2).dtTransOffset = 1;
 
-                    ;% TrajRunner_DW.sfEvent_e
+                    ;% TrajRunner_DW.sfEvent_p
                     section.data(3).logicalSrcIdx = 22;
                     section.data(3).dtTransOffset = 2;
-
-                    ;% TrajRunner_DW.sfEvent_p
-                    section.data(4).logicalSrcIdx = 23;
-                    section.data(4).dtTransOffset = 3;
 
             nTotData = nTotData + section.nData;
             dworkMap.sections(7) = section;
             clear section
 
-            section.nData     = 6;
-            section.data(6)  = dumData; %prealloc
+            section.nData     = 4;
+            section.data(4)  = dumData; %prealloc
 
                     ;% TrajRunner_DW.Integrator1_DWORK1
-                    section.data(1).logicalSrcIdx = 24;
+                    section.data(1).logicalSrcIdx = 23;
                     section.data(1).dtTransOffset = 0;
 
                     ;% TrajRunner_DW.doneDoubleBufferReInit
-                    section.data(2).logicalSrcIdx = 25;
+                    section.data(2).logicalSrcIdx = 24;
                     section.data(2).dtTransOffset = 1;
 
-                    ;% TrajRunner_DW.idx_not_empty
-                    section.data(3).logicalSrcIdx = 26;
+                    ;% TrajRunner_DW.cmd_not_empty
+                    section.data(3).logicalSrcIdx = 25;
                     section.data(3).dtTransOffset = 2;
 
-                    ;% TrajRunner_DW.count_not_empty
-                    section.data(4).logicalSrcIdx = 27;
-                    section.data(4).dtTransOffset = 3;
-
-                    ;% TrajRunner_DW.doneDoubleBufferReInit_i
-                    section.data(5).logicalSrcIdx = 28;
-                    section.data(5).dtTransOffset = 4;
-
                     ;% TrajRunner_DW.doneDoubleBufferReInit_n
-                    section.data(6).logicalSrcIdx = 29;
-                    section.data(6).dtTransOffset = 5;
+                    section.data(4).logicalSrcIdx = 26;
+                    section.data(4).dtTransOffset = 3;
 
             nTotData = nTotData + section.nData;
             dworkMap.sections(8) = section;
@@ -1012,8 +988,8 @@
     ;%
 
 
-    targMap.checksum0 = 4256130222;
-    targMap.checksum1 = 2802704034;
-    targMap.checksum2 = 872323774;
-    targMap.checksum3 = 36958807;
+    targMap.checksum0 = 4017489040;
+    targMap.checksum1 = 2946157285;
+    targMap.checksum2 = 2063413218;
+    targMap.checksum3 = 1572527517;
 

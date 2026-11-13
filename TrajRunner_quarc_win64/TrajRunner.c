@@ -7,9 +7,9 @@
  *
  * Code generation for model "TrajRunner".
  *
- * Model version              : 13.49
+ * Model version              : 13.55
  * Simulink Coder version : 26.1 (R2026a) 20-Nov-2025
- * C source code generated on : Fri Nov 13 11:26:08 2026
+ * C source code generated on : Fri Nov 13 13:36:25 2026
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -21,7 +21,6 @@
 #include "TrajRunner.h"
 #include "rtwtypes.h"
 #include <math.h>
-#include <emmintrin.h>
 #include "TrajRunner_private.h"
 #include "zero_crossing_types.h"
 #include <string.h>
@@ -119,24 +118,6 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   rtsiSetSimTimeStep(si,MAJOR_TIME_STEP);
 }
 
-real_T rt_roundd_snf(real_T u)
-{
-  real_T y;
-  if (fabs(u) < 4.503599627370496E+15) {
-    if (u >= 0.5) {
-      y = floor(u + 0.5);
-    } else if (u > -0.5) {
-      y = u * 0.0;
-    } else {
-      y = ceil(u - 0.5);
-    }
-  } else {
-    y = u;
-  }
-
-  return y;
-}
-
 /* Model output function */
 void TrajRunner_output(void)
 {
@@ -145,51 +126,14 @@ void TrajRunner_output(void)
   real_T rtb_HILReadTimebase1_o20;
   real_T rtb_gripperpwm;
   real_T rtb_Elbow;
-  __m128d tmp_3;
-  __m128d tmp_5;
-  real_T T01[16];
-  real_T T01_tmp_3[16];
-  real_T T01_tmp_4[16];
-  real_T T01_tmp_5[16];
-  real_T T02[16];
-  real_T T03[16];
-  real_T T04[16];
-  real_T tmp_0[12];
-  real_T tmp_1[4];
-  real_T c_b[3];
-  real_T v_err[3];
-  real_T tmp_2[2];
-  real_T T01_tmp;
-  real_T p_err_idx_0;
-  real_T p_err_idx_1;
+  real_T phidot_err[4];
   real_T rtb_Bias;
-  real_T rtb_ManualSwitch2;
-  int32_T T01_tmp_tmp;
+  real_T tmp_0;
   int32_T gripperMode;
-  int32_T i;
-  int32_T tmp_4;
-  int32_T tmp_6;
-  int8_T T01_tmp_2[16];
-  int8_T T01_tmp_0[4];
-  int8_T T01_tmp_1[4];
-  boolean_T outside;
-  boolean_T tmp;
-  ZCEventType zcEvent;
-  static const int8_T f[16] = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
-
-  static const real_T e[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-    1.0, 0.0, 0.0, 0.0, 0.14, 1.0 };
-
-  static const real_T g[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 6.123233995736766E-17,
-    -1.0, 0.0, 0.0, 1.0, 6.123233995736766E-17, 0.0, 0.0, 0.0, 0.0, 1.0 };
-
-  static const real_T h[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-    1.0, 0.0, 0.35355339059327373, 0.0, 0.0, 1.0 };
-
-  static const real_T j[16] = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-    1.0, 0.0, 0.0, 0.0, 0.4, 1.0 };
-
   boolean_T exitg1;
+  boolean_T tmp;
+  boolean_T y;
+  ZCEventType zcEvent;
   if (rtmIsMajorTimeStep(TrajRunner_M)) {
     /* set solver stop time */
     if (!(TrajRunner_M->Timing.clockTick0+1)) {
@@ -499,25 +443,25 @@ void TrajRunner_output(void)
     TrajRunner_B.MAIN[3] = TrajRunner_P.DefaultCmd_Value[3];
   } else {
     if (TrajRunner_P.ManualSwitch2_CurrentSetting == 1) {
-      /* Step: '<S7>/Step' */
+      /* Step: '<S6>/Step' */
       if (TrajRunner_M->Timing.t[0] < TrajRunner_P.Ramp_start) {
-        T01_tmp = TrajRunner_P.Step_Y0;
+        tmp_0 = TrajRunner_P.Step_Y0;
       } else {
-        T01_tmp = TrajRunner_P.Ramp_slope;
+        tmp_0 = TrajRunner_P.Ramp_slope;
       }
 
       /* ManualSwitch: '<Root>/MAIN' incorporates:
-       *  Clock: '<S7>/Clock'
-       *  Constant: '<S7>/Constant'
-       *  Constant: '<S7>/Constant1'
+       *  Clock: '<S6>/Clock'
+       *  Constant: '<S6>/Constant'
+       *  Constant: '<S6>/Constant1'
        *  ManualSwitch: '<Root>/Manual Switch2'
-       *  Product: '<S7>/Product'
-       *  Step: '<S7>/Step'
-       *  Sum: '<S7>/Output'
-       *  Sum: '<S7>/Sum'
+       *  Product: '<S6>/Product'
+       *  Step: '<S6>/Step'
+       *  Sum: '<S6>/Output'
+       *  Sum: '<S6>/Sum'
        */
       TrajRunner_B.MAIN[2] = (TrajRunner_M->Timing.t[0] -
-        TrajRunner_P.Ramp_start) * T01_tmp + TrajRunner_P.Ramp_InitialOutput;
+        TrajRunner_P.Ramp_start) * tmp_0 + TrajRunner_P.Ramp_InitialOutput;
     } else {
       /* ManualSwitch: '<Root>/MAIN' incorporates:
        *  Constant: '<Root>/Constant6'
@@ -534,754 +478,44 @@ void TrajRunner_output(void)
 
   /* End of ManualSwitch: '<Root>/MAIN' */
   if (tmp) {
-    /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
-     *  SignalConversion generated from: '<S4>/ SFunction '
+    /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
+     *  Constant: '<Root>/Constant'
+     *  SignalConversion generated from: '<S3>/ SFunction '
      */
-    TrajRunner_DW.sfEvent_e = TrajRunner_CALL_EVENT;
-
-    /* MATLAB Function 'MATLAB Function1': '<S4>:1' */
-    /* '<S4>:1:60' */
-    /* '<S4>:1:72' */
-    /* '<S4>:1:14' */
-    /* '<S4>:1:18' */
-    /* '<S4>:1:32' */
-    /* '<S4>:1:36' */
-    /* '<S4>:1:37' */
-    /* '<S4>:1:38' */
-    /* '<S4>:1:39' */
-    /* '<S4>:1:47' */
-    /* '<S4>:1:90' */
-    /* '<S4>:1:91' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:94' */
-    /* '<S4>:1:88' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:98' */
-    /* '<S4>:1:103' */
-    /* '<S4>:1:108' */
-    rtb_ManualSwitch2 = sin(TrajRunner_B.HILReadTimebase1_o6);
-    T01_tmp = cos(TrajRunner_B.HILReadTimebase1_o6);
-    T01_tmp_0[0] = 0;
-    T01_tmp_1[0] = 0;
-    T01_tmp_0[1] = 0;
-    T01_tmp_1[1] = 0;
-    T01_tmp_0[2] = 1;
-    T01_tmp_1[2] = 0;
-    T01_tmp_0[3] = 0;
-    T01_tmp_1[3] = 1;
-    for (gripperMode = 0; gripperMode < 16; gripperMode++) {
-      T01_tmp_2[gripperMode] = f[gripperMode];
-    }
-
-    T01_tmp_3[0] = T01_tmp;
-    T01_tmp_3[4] = -rtb_ManualSwitch2;
-    T01_tmp_3[8] = 0.0;
-    T01_tmp_3[12] = 0.0;
-    T01_tmp_3[1] = rtb_ManualSwitch2;
-    T01_tmp_3[5] = T01_tmp;
-    T01_tmp_3[9] = 0.0;
-    T01_tmp_3[13] = 0.0;
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp_3[T01_tmp_tmp + 2] = T01_tmp_0[gripperMode];
-      T01_tmp_3[T01_tmp_tmp + 3] = T01_tmp_1[gripperMode];
-      T01_tmp_4[T01_tmp_tmp] = 0.0;
-      T01_tmp_4[T01_tmp_tmp + 1] = 0.0;
-      T01_tmp_4[T01_tmp_tmp + 2] = 0.0;
-      T01_tmp_4[T01_tmp_tmp + 3] = 0.0;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_4[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_4[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_4[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_4[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(e[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T04[tmp_6] = 0.0;
-      }
-
-      T01_tmp_4[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_4[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_4[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_4[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T04[T01_tmp_tmp];
-      p_err_idx_0 = T04[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T04[T01_tmp_tmp + 2];
-      p_err_idx_1 = T04[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01[tmp_6] = 0.0;
-      }
-
-      T04[T01_tmp_tmp + 3] = p_err_idx_1;
-      T04[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T04[T01_tmp_tmp + 1] = p_err_idx_0;
-      T04[T01_tmp_tmp] = T01_tmp;
-    }
-
-    /* '<S4>:1:48' */
-    /* '<S4>:1:90' */
-    /* '<S4>:1:91' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:94' */
-    /* '<S4>:1:88' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:98' */
-    /* '<S4>:1:103' */
-    /* '<S4>:1:108' */
-    /* '<S4>:1:49' */
-    /* '<S4>:1:90' */
-    /* '<S4>:1:91' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:94' */
-    /* '<S4>:1:88' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:98' */
-    /* '<S4>:1:103' */
-    /* '<S4>:1:108' */
-    /* '<S4>:1:50' */
-    /* '<S4>:1:90' */
-    /* '<S4>:1:91' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:94' */
-    /* '<S4>:1:88' */
-    /* '<S4>:1:93' */
-    /* '<S4>:1:98' */
-    /* '<S4>:1:103' */
-    /* '<S4>:1:108' */
-    /* '<S4>:1:52' */
-    rtb_ManualSwitch2 = sin((TrajRunner_B.HILReadTimebase1_o7 +
-      0.14189705460416394) - 1.5707963267948966);
-    T01_tmp = cos((TrajRunner_B.HILReadTimebase1_o7 + 0.14189705460416394) -
-                  1.5707963267948966);
-    T01_tmp_3[0] = T01_tmp;
-    T01_tmp_3[4] = -rtb_ManualSwitch2;
-    T01_tmp_3[8] = 0.0;
-    T01_tmp_3[12] = 0.0;
-    T01_tmp_3[1] = rtb_ManualSwitch2;
-    T01_tmp_3[5] = T01_tmp;
-    T01_tmp_3[9] = 0.0;
-    T01_tmp_3[13] = 0.0;
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp_3[T01_tmp_tmp + 2] = T01_tmp_0[gripperMode];
-      T01_tmp_3[T01_tmp_tmp + 3] = T01_tmp_1[gripperMode];
-      T01_tmp = T01[T01_tmp_tmp];
-      p_err_idx_0 = T01[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(g[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_4[tmp_6] = 0.0;
-      }
-
-      T01[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_4[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_4[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_4[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_4[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T04[tmp_6] = 0.0;
-      }
-
-      T01_tmp_4[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_4[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_4[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_4[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T04[T01_tmp_tmp];
-      p_err_idx_0 = T04[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T04[T01_tmp_tmp + 2];
-      p_err_idx_1 = T04[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(h[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_3[tmp_6] = 0.0;
-      }
-
-      T04[T01_tmp_tmp + 3] = p_err_idx_1;
-      T04[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T04[T01_tmp_tmp + 1] = p_err_idx_0;
-      T04[T01_tmp_tmp] = T01_tmp;
-    }
-
-    /* '<S4>:1:53' */
-    rtb_ManualSwitch2 = sin(TrajRunner_B.HILReadTimebase1_o8 -
-      0.14189705460416394);
-    T01_tmp = cos(TrajRunner_B.HILReadTimebase1_o8 - 0.14189705460416394);
-    T01_tmp_4[0] = T01_tmp;
-    T01_tmp_4[4] = -rtb_ManualSwitch2;
-    T01_tmp_4[8] = 0.0;
-    T01_tmp_4[12] = 0.0;
-    T01_tmp_4[1] = rtb_ManualSwitch2;
-    T01_tmp_4[5] = T01_tmp;
-    T01_tmp_4[9] = 0.0;
-    T01_tmp_4[13] = 0.0;
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_3[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_3[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_3[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_3[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T02[tmp_6] = 0.0;
-      }
-
-      T01_tmp_3[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_3[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_3[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_3[T01_tmp_tmp] = T01_tmp;
-      T01_tmp_4[T01_tmp_tmp + 2] = T01_tmp_0[gripperMode];
-      T01_tmp_4[T01_tmp_tmp + 3] = T01_tmp_1[gripperMode];
-      T01_tmp = T02[T01_tmp_tmp];
-      p_err_idx_0 = T02[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T02[T01_tmp_tmp + 2];
-      p_err_idx_1 = T02[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_3[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_5[tmp_6] = 0.0;
-      }
-
-      T02[T01_tmp_tmp + 3] = p_err_idx_1;
-      T02[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T02[T01_tmp_tmp + 1] = p_err_idx_0;
-      T02[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_5[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_5[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_5[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_5[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_4[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_3[tmp_6] = 0.0;
-      }
-
-      T01_tmp_5[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_5[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_5[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_5[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_3[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_3[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_3[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_3[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_5[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_5[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_4[tmp_6] = 0.0;
-      }
-
-      T01_tmp_3[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_3[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_3[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_3[T01_tmp_tmp] = T01_tmp;
-    }
-
-    /* '<S4>:1:54' */
-    rtb_ManualSwitch2 = sin(TrajRunner_B.HILReadTimebase1_o9);
-    T01_tmp = cos(TrajRunner_B.HILReadTimebase1_o9);
-    T04[0] = T01_tmp;
-    T04[4] = -rtb_ManualSwitch2;
-    T04[8] = 0.0;
-    T04[12] = 0.0;
-    T04[1] = rtb_ManualSwitch2;
-    T04[5] = T01_tmp;
-    T04[9] = 0.0;
-    T04[13] = 0.0;
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_4[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_4[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_4[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_4[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(g[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T03[tmp_6] = 0.0;
-      }
-
-      T01_tmp_4[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_4[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_4[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_4[T01_tmp_tmp] = T01_tmp;
-      T04[T01_tmp_tmp + 2] = T01_tmp_0[gripperMode];
-      T04[T01_tmp_tmp + 3] = T01_tmp_1[gripperMode];
-      T01_tmp = T03[T01_tmp_tmp];
-      p_err_idx_0 = T03[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T03[T01_tmp_tmp + 2];
-      p_err_idx_1 = T03[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_4[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T02[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T02[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_5[tmp_6] = 0.0;
-      }
-
-      T03[T01_tmp_tmp + 3] = p_err_idx_1;
-      T03[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T03[T01_tmp_tmp + 1] = p_err_idx_0;
-      T03[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_5[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_5[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_5[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_5[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(j[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T04[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_3[tmp_6] = 0.0;
-      }
-
-      T01_tmp_5[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_5[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_5[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_5[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_3[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_3[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_3[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_3[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_5[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_5[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T01_tmp_4[tmp_6] = 0.0;
-      }
-
-      T01_tmp_3[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_3[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_3[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_3[T01_tmp_tmp] = T01_tmp;
-    }
-
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      T01_tmp_tmp = gripperMode << 2;
-      T01_tmp = T01_tmp_4[T01_tmp_tmp];
-      p_err_idx_0 = T01_tmp_4[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T01_tmp_4[T01_tmp_tmp + 2];
-      p_err_idx_1 = T01_tmp_4[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_6 = T01_tmp_tmp + i;
-        tmp_5 = _mm_set1_pd(T01_tmp_2[tmp_6]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T01_tmp_3[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-        T04[tmp_6] = 0.0;
-      }
-
-      T01_tmp_4[T01_tmp_tmp + 3] = p_err_idx_1;
-      T01_tmp_4[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T01_tmp_4[T01_tmp_tmp + 1] = p_err_idx_0;
-      T01_tmp_4[T01_tmp_tmp] = T01_tmp;
-      T01_tmp = T04[T01_tmp_tmp];
-      p_err_idx_0 = T04[T01_tmp_tmp + 1];
-      rtb_ManualSwitch2 = T04[T01_tmp_tmp + 2];
-      p_err_idx_1 = T04[T01_tmp_tmp + 3];
-      for (i = 0; i < 4; i++) {
-        tmp_4 = i << 2;
-        tmp_5 = _mm_set1_pd(T01_tmp_4[T01_tmp_tmp + i]);
-        tmp_3 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T03[tmp_4]), tmp_5),
-                           _mm_set_pd(p_err_idx_0, T01_tmp));
-        _mm_storeu_pd(&tmp_2[0], tmp_3);
-        T01_tmp = tmp_2[0];
-        p_err_idx_0 = tmp_2[1];
-        tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&T03[tmp_4 + 2]), tmp_5),
-                           _mm_set_pd(p_err_idx_1, rtb_ManualSwitch2));
-        _mm_storeu_pd(&tmp_2[0], tmp_5);
-        rtb_ManualSwitch2 = tmp_2[0];
-        p_err_idx_1 = tmp_2[1];
-      }
-
-      T04[T01_tmp_tmp + 3] = p_err_idx_1;
-      T04[T01_tmp_tmp + 2] = rtb_ManualSwitch2;
-      T04[T01_tmp_tmp + 1] = p_err_idx_0;
-      T04[T01_tmp_tmp] = T01_tmp;
-    }
-
-    /* '<S4>:1:56' */
-    /* '<S4>:1:57' */
-    /* '<S4>:1:60' */
-    /* '<S4>:1:61' */
-    /* '<S4>:1:62' */
-    /* '<S4>:1:63' */
-    /* '<S4>:1:65' */
-    /* '<S4>:1:66' */
-    /* '<S4>:1:67' */
-    /* '<S4>:1:72' */
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set1_pd(T04[12]), _mm_set_pd(T02[12],
-      T01[12])));
-    v_err[0] = tmp_2[0];
-    c_b[0] = tmp_2[1];
-    tmp_5 = _mm_sub_pd(_mm_loadu_pd(&T04[12]), _mm_set_pd(T01[13], T03[12]));
-    _mm_storeu_pd(&tmp_2[0], tmp_5);
-
-    /* MATLAB Function: '<Root>/MATLAB Function1' */
-    p_err_idx_0 = tmp_2[0];
-    v_err[1] = tmp_2[1];
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set1_pd(T04[13]), _mm_set_pd(T03[13],
-      T02[13])));
-    c_b[1] = tmp_2[0];
-    rtb_ManualSwitch2 = tmp_2[1];
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set1_pd(T04[14]), _mm_set_pd(T02[14],
-      T01[14])));
-    v_err[2] = tmp_2[0];
-    c_b[2] = tmp_2[1];
-    p_err_idx_1 = T04[14] - T03[14];
-
-    /* '<S4>:1:74' */
-    /* '<S4>:1:75' */
-    /* '<S4>:1:78' */
-    T01_tmp = 0.0 * T04[14];
-    tmp_0[0] = T01_tmp - T04[13];
-    tmp_0[1] = T04[12] - T01_tmp;
-    _mm_storeu_pd(&tmp_0[2], _mm_sub_pd(_mm_mul_pd(_mm_set_pd(tmp_2[0], 0.0),
-      _mm_set_pd(T01[9], T04[13])), _mm_mul_pd(_mm_set_pd(v_err[1], 0.0),
-      _mm_set_pd(T01[10], T04[12]))));
-    tmp_5 = _mm_sub_pd(_mm_mul_pd(_mm_loadu_pd(&v_err[0]), _mm_set_pd(T01[8],
-      T01[10])), _mm_mul_pd(_mm_set_pd(v_err[0], tmp_2[0]), _mm_loadu_pd(&T01[8])));
-    _mm_storeu_pd(&tmp_0[4], tmp_5);
-    tmp_5 = _mm_sub_pd(_mm_mul_pd(_mm_set_pd(c_b[0], tmp_2[1]), _mm_loadu_pd
-      (&T02[9])), _mm_mul_pd(_mm_loadu_pd(&c_b[1]), _mm_set_pd(T02[8], T02[10])));
-    _mm_storeu_pd(&tmp_0[6], tmp_5);
-    _mm_storeu_pd(&tmp_0[8], _mm_sub_pd(_mm_mul_pd(_mm_set_pd(T03[9], c_b[1]),
-      _mm_set_pd(p_err_idx_1, T02[8])), _mm_mul_pd(_mm_set_pd(rtb_ManualSwitch2,
-      c_b[0]), _mm_set_pd(T03[10], T02[9]))));
-    _mm_storeu_pd(&tmp_0[10], _mm_sub_pd(_mm_mul_pd(_mm_set_pd(T03[8],
-      p_err_idx_0), _mm_set_pd(rtb_ManualSwitch2, T03[10])), _mm_mul_pd
-      (_mm_set_pd(p_err_idx_0, T03[8]), _mm_set_pd(T03[9], p_err_idx_1))));
-
-    /* SignalConversion generated from: '<S4>/ SFunction ' incorporates:
-     *  MATLAB Function: '<Root>/MATLAB Function1'
-     */
-    tmp_1[0] = TrajRunner_B.HILReadTimebase1_o11;
-    tmp_1[1] = TrajRunner_B.HILReadTimebase1_o12;
-    tmp_1[2] = TrajRunner_B.HILReadTimebase1_o13;
-    tmp_1[3] = TrajRunner_B.HILReadTimebase1_o14;
-
-    /* MATLAB Function: '<Root>/MATLAB Function1' */
-    p_err_idx_0 = 0.0;
-    rtb_ManualSwitch2 = 0.0;
-    T01_tmp = 0.0;
-    for (gripperMode = 0; gripperMode < 4; gripperMode++) {
-      tmp_5 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&tmp_0[3 * gripperMode]),
-        _mm_set1_pd(tmp_1[gripperMode])), _mm_set_pd(rtb_ManualSwitch2,
-        p_err_idx_0));
-      _mm_storeu_pd(&tmp_2[0], tmp_5);
-      p_err_idx_0 = tmp_2[0];
-      rtb_ManualSwitch2 = tmp_2[1];
-      T01_tmp += tmp_0[3 * gripperMode + 2] * tmp_1[gripperMode];
-    }
-
-    /* MATLAB Function: '<Root>/MATLAB Function' */
-    /* '<S4>:1:79' */
     TrajRunner_DW.sfEvent_p = TrajRunner_CALL_EVENT;
 
-    /* MATLAB Function: '<Root>/MATLAB Function1' */
     /* MATLAB Function 'MATLAB Function': '<S3>:1' */
-    /* '<S3>:1:31' */
-    /* '<S3>:1:32' */
-    TrajRunner_B.v4[0] = p_err_idx_0;
-    TrajRunner_B.p4[0] = T04[12];
-
-    /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
-     *  Constant: '<Root>/Constant'
-     *  Constant: '<Root>/Constant12'
-     *  MATLAB Function: '<Root>/MATLAB Function1'
-     */
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set_pd
-      (TrajRunner_P.Constant12_Value[0], TrajRunner_P.Constant_Value[0]),
-      _mm_set_pd(p_err_idx_0, T04[12])));
-    p_err_idx_0 = tmp_2[0];
-    v_err[0] = tmp_2[1];
-
-    /* MATLAB Function: '<Root>/MATLAB Function1' */
-    TrajRunner_B.v4[1] = rtb_ManualSwitch2;
-    TrajRunner_B.p4[1] = T04[13];
-
-    /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
-     *  Constant: '<Root>/Constant'
-     *  Constant: '<Root>/Constant12'
-     *  MATLAB Function: '<Root>/MATLAB Function1'
-     */
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set_pd
-      (TrajRunner_P.Constant12_Value[1], TrajRunner_P.Constant_Value[1]),
-      _mm_set_pd(rtb_ManualSwitch2, T04[13])));
-    p_err_idx_1 = tmp_2[0];
-    v_err[1] = tmp_2[1];
-
-    /* MATLAB Function: '<Root>/MATLAB Function1' */
-    TrajRunner_B.v4[2] = T01_tmp;
-    TrajRunner_B.p4[2] = T04[14];
-
-    /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
-     *  Constant: '<Root>/Constant'
-     *  Constant: '<Root>/Constant12'
-     *  MATLAB Function: '<Root>/MATLAB Function1'
-     */
-    _mm_storeu_pd(&tmp_2[0], _mm_sub_pd(_mm_set_pd
-      (TrajRunner_P.Constant12_Value[2], TrajRunner_P.Constant_Value[2]),
-      _mm_set_pd(T01_tmp, T04[14])));
-    if (TrajRunner_B.HILReadTimebase1_o10 > 0.5) {
-      /* '<S3>:1:34' */
-      /* '<S3>:1:35' */
-      gripperMode = 1;
-    } else {
-      /* '<S3>:1:37' */
-      gripperMode = 0;
-    }
-
-    /* '<S3>:1:40' */
-    rtb_ManualSwitch2 = gripperMode;
+    /* '<S3>:1:2' */
+    gripperMode = (TrajRunner_B.HILReadTimebase1_o10 > 0.5);
+    TrajRunner_B.newState = gripperMode;
     if (gripperMode == 1) {
-      /* '<S3>:1:42' */
-      /* '<S3>:1:46' */
-      c_b[0] = fabs(v_err[0]);
-      v_err[0] = fabs(p_err_idx_0);
-      c_b[1] = fabs(v_err[1]);
-      v_err[1] = fabs(p_err_idx_1);
-      c_b[2] = fabs(tmp_2[1]);
-      v_err[2] = fabs(tmp_2[0]);
-      outside = true;
+      phidot_err[0] = fabs(TrajRunner_P.Constant_Value[0] -
+                           TrajRunner_B.HILReadTimebase1_o6);
+      phidot_err[1] = fabs(TrajRunner_P.Constant_Value[1] -
+                           TrajRunner_B.HILReadTimebase1_o7);
+      phidot_err[2] = fabs(TrajRunner_P.Constant_Value[2] -
+                           TrajRunner_B.HILReadTimebase1_o8);
+      phidot_err[3] = fabs(TrajRunner_P.Constant_Value[3] -
+                           TrajRunner_B.HILReadTimebase1_o9);
+      y = true;
       gripperMode = 0;
       exitg1 = false;
-      while (!exitg1 && (gripperMode < 3)) {
-        if (!(v_err[gripperMode] <= TrajRunner_P.Constant5_Value[gripperMode]))
-        {
-          outside = false;
+      while (!exitg1 && (gripperMode < 4)) {
+        if (!(phidot_err[gripperMode] <=
+              TrajRunner_P.Constant5_Value[gripperMode])) {
+          y = false;
           exitg1 = true;
         } else {
           gripperMode++;
         }
       }
 
-      if (outside) {
-        /* '<S3>:1:47' */
-        gripperMode = 0;
-        exitg1 = false;
-        while (!exitg1 && (gripperMode < 3)) {
-          if (!(c_b[gripperMode] <= TrajRunner_P.Constant13_Value[gripperMode]))
-          {
-            outside = false;
-            exitg1 = true;
-          } else {
-            gripperMode++;
-          }
-        }
-
-        if (outside) {
-          /* '<S3>:1:47' */
-          /* '<S3>:1:49' */
-          rtb_ManualSwitch2 = 0.0;
-        }
-      }
-    } else {
-      /* '<S3>:1:54' */
-      c_b[0] = fabs(p_err_idx_0);
-      c_b[1] = fabs(p_err_idx_1);
-      c_b[2] = fabs(tmp_2[0]);
-      outside = false;
-      exitg1 = false;
-      while (!exitg1 && (gripperMode < 3)) {
-        if (c_b[gripperMode] >= TrajRunner_P.Constant11_Value[gripperMode]) {
-          outside = true;
-          exitg1 = true;
-        } else {
-          gripperMode++;
-        }
-      }
-
-      if (outside) {
-        /* '<S3>:1:55' */
-        /* '<S3>:1:56' */
-        rtb_ManualSwitch2 = 1.0;
+      if (y) {
+        TrajRunner_B.newState = 0.0;
       }
     }
+
+    /* End of MATLAB Function: '<Root>/MATLAB Function' */
 
     /* ManualSwitch: '<Root>/Manual Switch5' */
     if (TrajRunner_P.ManualSwitch5_CurrentSetting == 1) {
@@ -1301,70 +535,54 @@ void TrajRunner_output(void)
       /* ManualSwitch: '<Root>/Manual Switch5' incorporates:
        *  ManualSwitch: '<Root>/Manual Switch4'
        */
-      TrajRunner_B.ManualSwitch5 = rtb_ManualSwitch2;
+      TrajRunner_B.ManualSwitch5 = TrajRunner_B.newState;
     }
 
     /* End of ManualSwitch: '<Root>/Manual Switch5' */
-    /* MATLAB Function: '<Root>/MATLAB Function2' incorporates:
-     *  Constant: '<Root>/Constant15'
-     *  Constant: '<Root>/Constant17'
+    /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
+     *  Constant: '<Root>/Constant18'
+     *  Constant: '<Root>/Constant7'
+     *  ManualSwitch: '<Root>/Manual Switch7'
+     *  SignalConversion generated from: '<S4>/ SFunction '
      */
     TrajRunner_DW.sfEvent = TrajRunner_CALL_EVENT;
 
-    /* MATLAB Function 'MATLAB Function2': '<S5>:1' */
-    /* '<S5>:1:2' */
-    if (!TrajRunner_DW.idx_not_empty) {
-      TrajRunner_DW.idx = fmin(fmax(rt_roundd_snf(TrajRunner_P.Constant17_Value),
-        1.0), 24.0);
-      TrajRunner_DW.idx_not_empty = true;
-      TrajRunner_DW.count_not_empty = true;
-    }
-
-    gripperMode = ((int32_T)TrajRunner_DW.idx - 1) << 2;
-    TrajRunner_B.phi[0] = TrajRunner_P.Constant15_Value[gripperMode];
-    TrajRunner_B.phi[1] = TrajRunner_P.Constant15_Value[gripperMode + 1];
-    TrajRunner_B.phi[2] = TrajRunner_P.Constant15_Value[gripperMode + 2];
-    TrajRunner_B.phi[3] = TrajRunner_P.Constant15_Value[gripperMode + 3];
-
-    /* ManualSwitch: '<Root>/Manual Switch6' incorporates:
-     *  Constant: '<Root>/run'
-     *  Constant: '<Root>/stop'
-     */
-    if (TrajRunner_P.ManualSwitch6_CurrentSetting == 1) {
-      T01_tmp = TrajRunner_P.run_Value;
-    } else {
-      T01_tmp = TrajRunner_P.stop_Value;
-    }
-
-    /* MATLAB Function: '<Root>/MATLAB Function2' incorporates:
-     *  Constant: '<Root>/Constant16'
-     *  Constant: '<Root>/Constant7'
-     *  ManualSwitch: '<Root>/Manual Switch6'
-     *  ManualSwitch: '<Root>/Manual Switch7'
-     */
-    if (!(T01_tmp < 0.5)) {
-      TrajRunner_DW.count++;
-      if (TrajRunner_DW.count >= fmax(1.0, rt_roundd_snf(1.0 /
-            (TrajRunner_P.Constant16_Value * TrajRunner_P.Constant7_Value)))) {
-        TrajRunner_DW.count = 0.0;
-
-        /* ManualSwitch: '<Root>/Manual Switch7' incorporates:
-         *  Constant: '<Root>/forwards'
-         *  Constant: '<Root>/reverse'
-         */
-        if (TrajRunner_P.ManualSwitch7_CurrentSetting == 1) {
-          T01_tmp = TrajRunner_P.reverse_Value;
-        } else {
-          T01_tmp = TrajRunner_P.forwards_Value;
-        }
-
-        if (T01_tmp > 0.5) {
-          TrajRunner_DW.idx = fmax(TrajRunner_DW.idx - 1.0, 1.0);
-        } else {
-          TrajRunner_DW.idx = fmin(TrajRunner_DW.idx + 1.0, 24.0);
-        }
+    /* MATLAB Function 'MATLAB Function1': '<S4>:1' */
+    /* '<S4>:1:2' */
+    if (TrajRunner_DW.cmd_not_empty) {
+      /* ManualSwitch: '<Root>/Manual Switch7' incorporates:
+       *  Constant: '<Root>/ OPEN2'
+       *  Constant: '<Root>/CLOSE 2'
+       */
+      if (TrajRunner_P.ManualSwitch7_CurrentSetting == 1) {
+        tmp_0 = TrajRunner_P.CLOSE2_Value;
+      } else {
+        tmp_0 = TrajRunner_P.OPEN2_Value;
       }
+
+      if (tmp_0 != 0.0) {
+        TrajRunner_DW.cmd[1] -= TrajRunner_P.Constant7_Value *
+          TrajRunner_P.Constant18_Value;
+      } else {
+        TrajRunner_DW.cmd[1] += TrajRunner_P.Constant7_Value *
+          TrajRunner_P.Constant18_Value;
+      }
+
+      TrajRunner_DW.cmd[1] = fmin(fmax(TrajRunner_DW.cmd[1], -1.2217304763960306),
+        1.2217304763960306);
+      TrajRunner_DW.cmd[2] = -1.63712;
+      TrajRunner_B.phi_cmd[0] = TrajRunner_DW.cmd[0];
+      TrajRunner_B.phi_cmd[1] = TrajRunner_DW.cmd[1];
+      TrajRunner_B.phi_cmd[2] = -1.63712;
+      TrajRunner_B.phi_cmd[3] = TrajRunner_DW.cmd[3];
+    } else {
+      TrajRunner_B.phi_cmd[0] = TrajRunner_B.HILReadTimebase1_o11;
+      TrajRunner_B.phi_cmd[1] = TrajRunner_B.HILReadTimebase1_o12;
+      TrajRunner_B.phi_cmd[2] = TrajRunner_B.HILReadTimebase1_o13;
+      TrajRunner_B.phi_cmd[3] = TrajRunner_B.HILReadTimebase1_o14;
     }
+
+    /* End of MATLAB Function: '<Root>/MATLAB Function1' */
   }
 
   /* ManualSwitch: '<Root>/MAIN1' */
@@ -1376,15 +594,15 @@ void TrajRunner_output(void)
     TrajRunner_B.MAIN1[3] = TrajRunner_B.MAIN[3];
   } else {
     /* ManualSwitch: '<Root>/MAIN1' */
-    TrajRunner_B.MAIN1[0] = TrajRunner_B.phi[0];
-    TrajRunner_B.MAIN1[1] = TrajRunner_B.phi[1];
-    TrajRunner_B.MAIN1[2] = TrajRunner_B.phi[2];
-    TrajRunner_B.MAIN1[3] = TrajRunner_B.phi[3];
+    TrajRunner_B.MAIN1[0] = TrajRunner_B.phi_cmd[0];
+    TrajRunner_B.MAIN1[1] = TrajRunner_B.phi_cmd[1];
+    TrajRunner_B.MAIN1[2] = TrajRunner_B.phi_cmd[2];
+    TrajRunner_B.MAIN1[3] = TrajRunner_B.phi_cmd[3];
   }
 
   /* End of ManualSwitch: '<Root>/MAIN1' */
 
-  /* Integrator: '<S8>/Integrator' */
+  /* Integrator: '<S7>/Integrator' */
   /* Limited  Integrator  */
   if (rtsiIsModeUpdateTimeStep(&TrajRunner_M->solverInfo)) {
     zcEvent = rt_ZCFcn(ANY_ZERO_CROSSING,
@@ -1404,20 +622,20 @@ void TrajRunner_output(void)
     TrajRunner_X.Integrator_CSTATE = TrajRunner_P.Integrator_LowerSat;
   }
 
-  /* Switch: '<S8>/Switch' */
+  /* Switch: '<S7>/Switch' */
   if (TrajRunner_B.ManualSwitch5 > TrajRunner_P.Switch_Threshold) {
-    /* Switch: '<S8>/Switch' incorporates:
-     *  Integrator: '<S8>/Integrator'
+    /* Switch: '<S7>/Switch' incorporates:
+     *  Integrator: '<S7>/Integrator'
      */
     TrajRunner_B.gripposition = TrajRunner_X.Integrator_CSTATE;
   } else {
-    /* Switch: '<S8>/Switch' incorporates:
-     *  Constant: '<S8>/open position'
+    /* Switch: '<S7>/Switch' incorporates:
+     *  Constant: '<S7>/open position'
      */
     TrajRunner_B.gripposition = TrajRunner_P.openposition_Value;
   }
 
-  /* End of Switch: '<S8>/Switch' */
+  /* End of Switch: '<S7>/Switch' */
   if (tmp) {
     /* S-Function (smooth_signal_generator_block): '<S2>/Smooth Signal Generator' */
     /* S-Function Block: TrajRunner/Hardware Plant P(s)/Smooth Signal Generator (smooth_signal_generator_block) */
@@ -1560,45 +778,45 @@ void TrajRunner_output(void)
       }
     }
 
-    /* Constant: '<S9>/x0' */
+    /* Constant: '<S8>/x0' */
     TrajRunner_B.x0 = TrajRunner_P.x0_Value;
   }
 
-  /* Integrator: '<S9>/Integrator1' */
+  /* Integrator: '<S8>/Integrator1' */
   if (TrajRunner_DW.Integrator1_DWORK1) {
     TrajRunner_X.Integrator1_CSTATE = TrajRunner_B.x0;
   }
 
-  /* Integrator: '<S9>/Integrator1' */
+  /* Integrator: '<S8>/Integrator1' */
   TrajRunner_B.Integrator1 = TrajRunner_X.Integrator1_CSTATE;
   if (tmp) {
-    /* Constant: '<S8>/Soft-Grip Current (A)' */
+    /* Constant: '<S7>/Soft-Grip Current (A)' */
     TrajRunner_B.goalcurrent = TrajRunner_P.SoftGripCurrentA_Value;
   }
 
-  /* Product: '<S9>/Product' incorporates:
-   *  Constant: '<S9>/Constant'
-   *  Constant: '<S9>/wn'
-   *  Constant: '<S9>/zt'
-   *  Integrator: '<S9>/Integrator2'
-   *  Product: '<S9>/Product2'
-   *  Sum: '<S9>/Sum'
-   *  Sum: '<S9>/Sum1'
+  /* Product: '<S8>/Product' incorporates:
+   *  Constant: '<S8>/Constant'
+   *  Constant: '<S8>/wn'
+   *  Constant: '<S8>/zt'
+   *  Integrator: '<S8>/Integrator2'
+   *  Product: '<S8>/Product2'
+   *  Sum: '<S8>/Sum'
+   *  Sum: '<S8>/Sum1'
    */
   TrajRunner_B.Product = ((TrajRunner_B.grippercurrent -
     TrajRunner_B.Integrator1) - TrajRunner_X.Integrator2_CSTATE *
     TrajRunner_P.Constant_Value_i * TrajRunner_P.undOrder25HzfilterbasedonFFT__a)
     * TrajRunner_P.undOrder25HzfilterbasedonFFT_in;
 
-  /* Product: '<S9>/Product1' incorporates:
-   *  Constant: '<S9>/wn'
-   *  Integrator: '<S9>/Integrator2'
+  /* Product: '<S8>/Product1' incorporates:
+   *  Constant: '<S8>/wn'
+   *  Integrator: '<S8>/Integrator2'
    */
   TrajRunner_B.Product1 = TrajRunner_P.undOrder25HzfilterbasedonFFT_in *
     TrajRunner_X.Integrator2_CSTATE;
 
-  /* Gain: '<S8>/Gain2' incorporates:
-   *  Sum: '<S8>/Subtract'
+  /* Gain: '<S7>/Gain2' incorporates:
+   *  Sum: '<S7>/Subtract'
    */
   TrajRunner_B.Gain2 = (TrajRunner_B.goalcurrent - TrajRunner_B.Integrator1) *
     TrajRunner_P.Gain2_Gain;
@@ -1656,7 +874,7 @@ void TrajRunner_output(void)
 /* Model update function */
 void TrajRunner_update(void)
 {
-  /* Update for Integrator: '<S9>/Integrator1' */
+  /* Update for Integrator: '<S8>/Integrator1' */
   TrajRunner_DW.Integrator1_DWORK1 = false;
   if (rtmIsMajorTimeStep(TrajRunner_M)) {
     rt_ertODEUpdateContinuousStates(&TrajRunner_M->solverInfo);
@@ -1705,7 +923,7 @@ void TrajRunner_derivatives(void)
   boolean_T usat;
   _rtXdot = ((XDot_TrajRunner_T *) TrajRunner_M->derivs);
 
-  /* Derivatives for Integrator: '<S8>/Integrator' */
+  /* Derivatives for Integrator: '<S7>/Integrator' */
   lsat = (TrajRunner_X.Integrator_CSTATE <= TrajRunner_P.Integrator_LowerSat);
   usat = (TrajRunner_X.Integrator_CSTATE >= TrajRunner_P.Integrator_UpperSat);
   if ((!lsat && !usat) || (lsat && (TrajRunner_B.Gain2 > 0.0)) || (usat &&
@@ -1716,12 +934,12 @@ void TrajRunner_derivatives(void)
     _rtXdot->Integrator_CSTATE = 0.0;
   }
 
-  /* End of Derivatives for Integrator: '<S8>/Integrator' */
+  /* End of Derivatives for Integrator: '<S7>/Integrator' */
 
-  /* Derivatives for Integrator: '<S9>/Integrator1' */
+  /* Derivatives for Integrator: '<S8>/Integrator1' */
   _rtXdot->Integrator1_CSTATE = TrajRunner_B.Product1;
 
-  /* Derivatives for Integrator: '<S9>/Integrator2' */
+  /* Derivatives for Integrator: '<S8>/Integrator2' */
   _rtXdot->Integrator2_CSTATE = TrajRunner_B.Product;
 }
 
@@ -1937,7 +1155,7 @@ void TrajRunner_initialize(void)
       (TrajRunner_P.SmoothSignalGenerator_InitialPh);
   }
 
-  /* Start for Constant: '<S9>/x0' */
+  /* Start for Constant: '<S8>/x0' */
   TrajRunner_B.x0 = TrajRunner_P.x0_Value;
 
   /* Start for S-Function (smooth_signal_generator_block): '<Root>/Elbow' */
@@ -1962,31 +1180,30 @@ void TrajRunner_initialize(void)
 
   TrajRunner_PrevZCX.Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
 
-  /* InitializeConditions for Integrator: '<S8>/Integrator' */
+  /* InitializeConditions for Integrator: '<S7>/Integrator' */
   TrajRunner_X.Integrator_CSTATE = TrajRunner_P.Integrator_IC;
 
-  /* InitializeConditions for Integrator: '<S9>/Integrator1' */
+  /* InitializeConditions for Integrator: '<S8>/Integrator1' */
   if (rtmIsFirstInitCond(TrajRunner_M)) {
     TrajRunner_X.Integrator1_CSTATE = 0.0;
   }
 
   TrajRunner_DW.Integrator1_DWORK1 = true;
 
-  /* End of InitializeConditions for Integrator: '<S9>/Integrator1' */
+  /* End of InitializeConditions for Integrator: '<S8>/Integrator1' */
 
-  /* InitializeConditions for Integrator: '<S9>/Integrator2' */
+  /* InitializeConditions for Integrator: '<S8>/Integrator2' */
   TrajRunner_X.Integrator2_CSTATE = TrajRunner_P.Integrator2_IC;
-
-  /* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function1' */
-  TrajRunner_DW.sfEvent_e = TrajRunner_CALL_EVENT;
 
   /* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function' */
   TrajRunner_DW.sfEvent_p = TrajRunner_CALL_EVENT;
 
-  /* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function2' */
-  TrajRunner_DW.idx_not_empty = false;
-  TrajRunner_DW.count_not_empty = false;
-  TrajRunner_DW.count = 0.0;
+  /* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function1' */
+  TrajRunner_DW.cmd[0] = 0.0;
+  TrajRunner_DW.cmd[1] = -1.1318;
+  TrajRunner_DW.cmd[2] = -1.5707963267948966;
+  TrajRunner_DW.cmd[3] = 0.0;
+  TrajRunner_DW.cmd_not_empty = true;
   TrajRunner_DW.sfEvent = TrajRunner_CALL_EVENT;
 
   /* set "at time zero" to false */
@@ -2190,15 +1407,15 @@ RT_MODEL_TrajRunner_T *TrajRunner(void)
   rtmSetFirstInitCond(TrajRunner_M, 1);
 
   /* External mode info */
-  TrajRunner_M->Sizes.checksums[0] = (4256130222U);
-  TrajRunner_M->Sizes.checksums[1] = (2802704034U);
-  TrajRunner_M->Sizes.checksums[2] = (872323774U);
-  TrajRunner_M->Sizes.checksums[3] = (36958807U);
+  TrajRunner_M->Sizes.checksums[0] = (4017489040U);
+  TrajRunner_M->Sizes.checksums[1] = (2946157285U);
+  TrajRunner_M->Sizes.checksums[2] = (2063413218U);
+  TrajRunner_M->Sizes.checksums[3] = (1572527517U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
     static RTWExtModeInfo rt_ExtModeInfo;
-    static const sysRanDType *systemRan[16];
+    static const sysRanDType *systemRan[15];
     TrajRunner_M->extModeInfo = (&rt_ExtModeInfo);
     rteiSetSubSystemActiveVectorAddresses(&rt_ExtModeInfo, systemRan);
     systemRan[0] = &rtAlwaysEnabled;
@@ -2216,7 +1433,6 @@ RT_MODEL_TrajRunner_T *TrajRunner(void)
     systemRan[12] = &rtAlwaysEnabled;
     systemRan[13] = &rtAlwaysEnabled;
     systemRan[14] = &rtAlwaysEnabled;
-    systemRan[15] = &rtAlwaysEnabled;
     rteiSetModelMappingInfoPtr(TrajRunner_M->extModeInfo,
       &TrajRunner_M->SpecialInfo.mappingInfo);
     rteiSetChecksumsPtr(TrajRunner_M->extModeInfo, TrajRunner_M->Sizes.checksums);
@@ -2282,9 +1498,9 @@ RT_MODEL_TrajRunner_T *TrajRunner(void)
   TrajRunner_M->Sizes.numU = (0);      /* Number of model inputs */
   TrajRunner_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   TrajRunner_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  TrajRunner_M->Sizes.numBlocks = (91);/* Number of blocks */
-  TrajRunner_M->Sizes.numBlockIO = (43);/* Number of block outputs */
-  TrajRunner_M->Sizes.numBlockPrms = (311);/* Sum of parameter "widths" */
+  TrajRunner_M->Sizes.numBlocks = (89);/* Number of blocks */
+  TrajRunner_M->Sizes.numBlockIO = (38);/* Number of block outputs */
+  TrajRunner_M->Sizes.numBlockPrms = (219);/* Sum of parameter "widths" */
   return TrajRunner_M;
 }
 
