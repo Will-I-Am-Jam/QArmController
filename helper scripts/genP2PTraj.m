@@ -1,6 +1,6 @@
 P_start = [0.1083 0 0.4618];
 P_end = [0.6828 0 0.3521];
-T_goal = 5;
+T_goal = 2;
 f_cmd = 20;
 [phi_cmds, valid] = p2pTraj(P_start, P_end, T_goal, f_cmd);
 
